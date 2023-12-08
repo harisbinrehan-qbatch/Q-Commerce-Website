@@ -14,7 +14,7 @@ const AdminRoutes = () => { // Admin Routes
 
   const { isAdmin, isUser } = useSelector((state) => state.authentication);
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // new line
 
   useEffect(() => {
     if (!isEmpty(user)) {
