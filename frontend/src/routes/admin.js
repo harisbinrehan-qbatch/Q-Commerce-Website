@@ -9,12 +9,12 @@ import Products from '../container/admin/products';
 import Orders from '../container/admin/orders';
 import OrderDetails from '../container/admin/order-details';
 
-const AdminRoutes = () => { // Admin Routes
+const AdminRoutes = () => {
   const user = JSON.parse(localStorage.getItem('user'));
 
   const { isAdmin, isUser } = useSelector((state) => state.authentication);
 
-  const navigate = useNavigate(); // new line
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isEmpty(user)) {
