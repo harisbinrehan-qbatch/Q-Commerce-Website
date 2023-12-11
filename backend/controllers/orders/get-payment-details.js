@@ -1,25 +1,29 @@
 import { stripeSecretKeyClient } from '../../config/config';
-import User from '../../models/user';
 
 const GetPaymentDetails = async (req, res) => {
   try {
-    const { userId } = req.query;
-
-    const user = await User.findOne({ _id: { $in: userId } });
+    const {
+      username,
+      stripeId
+    } = req.user;
 
     const cards = await stripeSecretKeyClient.customers.listSources(
-      user.stripeId,
+      stripeId,
       { object: 'card' }
     );
 
-    const allPaymentMethods = cards.data.map((card) => ({
-      cardholderName: user.username,
-      cardNumber: card.last4,
-      cardId: card.id,
-      brand: card.brand,
-      exp_month: card.exp_month,
-      exp_year: card.exp_year
-    }));
+    const allPaymentMethods = cards.data.map(
+      ({
+        last4, id, brand, exp_month, exp_year
+      }) => ({
+        cardholderName: username,
+        cardNumber: last4,
+        cardId: id,
+        brand,
+        exp_month,
+        exp_year
+      })
+    );
 
     return res.status(200).json({ allPaymentMethods });
   } catch (err) {

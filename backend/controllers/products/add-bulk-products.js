@@ -2,7 +2,7 @@ import Product from '../../models/product';
 
 const AddBulkProducts = async (req, res) => {
   try {
-    const productsData = req.body.bulkProducts;
+    const { bulkProducts } = req.body;
 
     const errorArr = [];
 
@@ -12,8 +12,8 @@ const AddBulkProducts = async (req, res) => {
 
     let failedUploads = 0;
 
-    for (let i = 0; i < productsData.length - 1; i += 1) {
-      const [name, size, color, price, quantity, date, images] = productsData[i];
+    for (let i = 0; i < bulkProducts.length - 1; i += 1) {
+      const [name, size, color, price, quantity, date, images] = bulkProducts[i];
 
       const missingFields = [];
 
@@ -31,6 +31,7 @@ const AddBulkProducts = async (req, res) => {
           message: `Missing fields: ${missingFields.join(', ')}`
         });
         failedUploads++;
+        continue;
       }
 
       const productDate = new Date(date);
@@ -49,6 +50,7 @@ const AddBulkProducts = async (req, res) => {
             'Price should be a non-negative and can have 2 decimal places'
         });
         failedUploads++;
+        continue;
       }
 
       if (!isValidStock) {
@@ -57,6 +59,7 @@ const AddBulkProducts = async (req, res) => {
           message: 'Quantity should be a non-negative integer value'
         });
         failedUploads++;
+        continue;
       }
 
       writeData.push({

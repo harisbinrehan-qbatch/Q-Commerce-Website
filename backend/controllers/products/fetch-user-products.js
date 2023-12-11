@@ -3,7 +3,9 @@ import Product from '../../models/product';
 const FetchUserProducts = async (req, res) => {
   try {
     const {
-      limit, skip, filterObject
+      limit,
+      skip,
+      filterObject
     } = req.query;
     let limitValue = 0;
     let skipValue = 0;

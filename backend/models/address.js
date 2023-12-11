@@ -1,21 +1,20 @@
 import mongoose from 'mongoose';
 
 const AddressSchema = new mongoose.Schema({
-  userId: {
+  email: {
     type: String,
     required: true
   },
-  addressInfo: [
-    {
-      name: String,
-      mobile: String,
-      country: String,
-      province: String,
-      city: String,
-      address: String,
-      isDefault: Boolean
-    }
-  ]
+  addressInfo:
+  {
+    name: String,
+    mobile: String,
+    country: String,
+    province: String,
+    city: String,
+    address: String,
+    isDefault: Boolean
+  }
 });
 
 const AddressModel = mongoose.model('addresses', AddressSchema);

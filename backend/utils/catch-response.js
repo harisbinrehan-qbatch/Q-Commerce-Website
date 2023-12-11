@@ -1,4 +1,6 @@
-const catchResponse = ({ res, err }) => {
+const catchResponse = ({
+  res, err
+}) => {
   let statusCode = 500;
   let error = 'Server Error';
 

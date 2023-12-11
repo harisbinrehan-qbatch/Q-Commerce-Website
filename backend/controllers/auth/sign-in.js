@@ -5,7 +5,8 @@ import { GenerateToken } from '../../middlewares/auth';
 export const SignIn = async (req, res) => {
   try {
     const {
-      email, password
+      email,
+      password
     } = req.body;
 
     if (!email || !password) {

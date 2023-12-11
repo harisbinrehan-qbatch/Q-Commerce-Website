@@ -29,6 +29,8 @@ Agenda.define(
         }
       ]);
 
+      console.log({ totalPaidOrders });
+
       const [totalUnpaidOrders] = await Order.aggregate([
         { $match: { isPaid: false } },
         {
@@ -39,10 +41,14 @@ Agenda.define(
         }
       ]);
 
-      const topSellingProducts = await Product.aggregate([
+      console.log({ totalUnpaidOrders });
+
+      const topSelling = await Product.aggregate([
         { $sort: { sold: -1 } },
         { $limit: 10 }
       ]);
+
+      console.log({ topSelling });
 
       const calculateOneYearStats = async () => {
         const oneYearStats = [];
@@ -87,12 +93,14 @@ Agenda.define(
 
       const oneYearStats = await calculateOneYearStats();
 
+      console.log({ oneYearStats });
+
       job.attrs.progress = 50;
       await job.save();
 
       let startDate = moment().startOf('day').toDate();
       let endDate = moment().endOf('day').toDate();
-      const todayStats = await Order.aggregate([
+      const [todayStats] = await Order.aggregate([
         {
           $match: {
             date: {
@@ -105,18 +113,19 @@ Agenda.define(
           $group: {
             _id: null,
             totalOrders: { $sum: 1 },
-            totalUnits: { $sum: '$totalProducts' },
+            totalUnits: { $sum: { $size: '$products' } },
             totalSales: { $sum: '$total' }
           }
         }
-      ]);
+      ]).exec();
+      console.log({ todayStats });
 
       job.attrs.progress = 50;
       await job.save();
 
       startDate = moment().subtract(7, 'days').toDate();
       endDate = moment().toDate();
-      const sevenDayStats = await Order.aggregate([
+      const [sevenDayStats] = await Order.aggregate([
         {
           $match: {
             date: {
@@ -129,18 +138,20 @@ Agenda.define(
           $group: {
             _id: null,
             totalOrders: { $sum: 1 },
-            totalUnits: { $sum: '$totalProducts' },
+            totalUnits: { $sum: { $size: '$products' } },
             totalSales: { $sum: '$total' }
           }
         }
-      ]);
+      ]).exec();
+
+      console.log({ sevenDayStats });
 
       job.attrs.progress = 75;
       await job.save();
 
       startDate = moment().subtract(30, 'days').toDate();
       endDate = moment().toDate();
-      const thirtyDayStats = await Order.aggregate([
+      const [thirtyDayStats] = await Order.aggregate([
         {
           $match: {
             date: {
@@ -153,11 +164,13 @@ Agenda.define(
           $group: {
             _id: null,
             totalOrders: { $sum: 1 },
-            totalUnits: { $sum: '$totalProducts' },
+            totalUnits: { $sum: { $size: '$products' } },
             totalSales: { $sum: '$total' }
           }
         }
-      ]);
+      ]).exec();
+
+      console.log({ thirtyDayStats });
 
       job.attrs.lockedAt = null;
       job.attrs.state = JOB_STATES.COMPLETED;
@@ -170,11 +183,11 @@ Agenda.define(
           $set: {
             totalPaidOrders: totalPaidOrders.count || 0,
             totalUnpaidOrders: totalUnpaidOrders.count || 0,
-            todayStats: todayStats[0],
-            sevenDayStats: sevenDayStats[0],
-            thirtyDayStats: thirtyDayStats[0],
+            todayStats,
+            sevenDayStats,
+            thirtyDayStats,
             oneYearStats,
-            topSelling: topSellingProducts
+            topSelling
           }
         },
         { upsert: true }

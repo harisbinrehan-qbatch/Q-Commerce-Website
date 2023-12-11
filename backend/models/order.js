@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 const OrderSchema = new mongoose.Schema(
   {
-    userId: {
+    email: {
       type: String,
       required: true
     },
@@ -13,16 +13,8 @@ const OrderSchema = new mongoose.Schema(
       required: true,
       unique: true
     },
-    username: {
-      type: String,
-      required: true
-    },
     products: {
       type: Array,
-      required: true
-    },
-    totalProducts: {
-      type: Number,
       required: true
     },
     total: {

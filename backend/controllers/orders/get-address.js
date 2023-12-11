@@ -2,11 +2,16 @@ import Address from '../../models/address';
 
 const GetAddress = async (req, res) => {
   try {
-    const { userId } = req.query;// check
+    const { email } = req.user;
 
-    const addresses = await Address.find({ userId });
+    const userAddresses = await Address.find({ email });
 
-    res.status(200).json({ addresses });
+    const addresses = userAddresses.map((address) => ({
+      _id: address._id,
+      ...address.addressInfo
+    }));
+
+    res.status(200).json(addresses);
   } catch (err) {
     res
       .status(500)

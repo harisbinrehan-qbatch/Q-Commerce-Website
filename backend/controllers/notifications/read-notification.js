@@ -1,18 +1,15 @@
 import Notification from '../../models/notification';
 
-const mongoose = require('mongoose');
-
 const ReadNotification = async (req, res) => {
   try {
     const { notificationId } = req.body;
 
-    if (!mongoose.Types.ObjectId.isValid(notificationId)) {
-      return res.status(400).json({ error: 'Invalid notificationId' });
-    }
+    const updatedNotification = await Notification.updateOne(
+      { _id: notificationId },
+      { $set: { isRead: true } }
+    );
 
-    const updatedNotification = await Notification.updateOne(notificationId, { isRead: true });
-
-    if (!updatedNotification) {
+    if (updatedNotification.nModified === 0) {
       return res.status(404).json({ message: 'Notification not found' });
     }
 

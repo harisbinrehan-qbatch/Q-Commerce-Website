@@ -46,6 +46,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'indent-legacy': ['error', 2],
     'comma-dangle': ['error', 'never'],
+    'no-continue': 'off',
     'new-cap': 'off',
     'default-case': 'off',
     'object-curly-newline': [

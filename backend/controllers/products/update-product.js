@@ -5,7 +5,9 @@ import Product from '../../models/product';
 const UpdateProduct = async (req, res) => {
   try {
     const {
-      _id, deletedImages, ...productData
+      _id,
+      deletedImages,
+      ...productData
     } = req.body.obj;
 
     const images = [];

@@ -1,33 +1,34 @@
 import Order from '../../models/order';
 import Product from '../../models/product';
+import User from '../../models/user';
 import Notification from '../../models/notification';
 import ChargeCustomer from '../stripe/utils/charge-customer';
 import generateOrderId from '../../utils/generate-order-id';
 
 const PlaceOrder = async (req, res) => {
   try {
+    const { email } = req.user;
     const {
-      username,
-      email,
-      stripeId,
       cardStripeId,
-      userId,
       products,
       totalAmount
     } = req.body;
+
+    const {
+      _id: userId,
+      stripeId
+    } = await User.findOne({ email });
 
     const orderId = generateOrderId();
 
     const newOrder = new Order({
       orderId,
-      username,
-      userId,
+      email,
       products,
-      totalProducts: products.length,
       total: totalAmount
     });
 
-    const updateProductPromises = products.map(async (product) => {
+    products.map(async (product) => {
       try {
         const existingProduct = await Product.findById(product._id);
 
@@ -45,8 +46,6 @@ const PlaceOrder = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
       }
     });
-
-    await Promise.all(updateProductPromises);
 
     await newOrder.save();
 
@@ -66,6 +65,8 @@ const PlaceOrder = async (req, res) => {
       forAdmin: true
     });
 
+    await adminNotification.save();
+
     const userNotification = new Notification({
       userId,
       text: `Order# ${orderId} has been placed`,
@@ -74,8 +75,6 @@ const PlaceOrder = async (req, res) => {
     });
 
     await userNotification.save();
-
-    await adminNotification.save();
 
     return res.status(201).json({
       message: 'Order placed successfully', orderId

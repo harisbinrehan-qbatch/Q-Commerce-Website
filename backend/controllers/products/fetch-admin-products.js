@@ -3,7 +3,9 @@ import Product from '../../models/product';
 const FetchAdminProducts = async (req, res) => {
   try {
     const {
-      limit, skip, filterObject
+      limit,
+      skip,
+      filterObject
     } = req.query;
 
     const limitValue = Number(limit) || 0;

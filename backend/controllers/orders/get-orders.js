@@ -3,7 +3,9 @@ import Order from '../../models/order';
 const GetAllOrders = async (req, res) => {
   try {
     const {
-      limit, skip, orderId
+      limit,
+      skip,
+      orderId
     } = req.query;
 
     const limitValue = orderId ? undefined : Number(limit);

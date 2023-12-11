@@ -19,9 +19,13 @@ router.post('/signup', SignUp);
 
 router.post('/sendEmail', ForgotPassword);
 
-router.post('/resetPassword', ResetPassword);
-
 router.post('/googleSignin', GoogleSignin);
+
+router.post(
+  '/resetPassword',
+  passport.authenticate('jwt', { session: false }),
+  ResetPassword
+);
 
 router.post(
   '/verifyUser',

@@ -13,7 +13,7 @@ const sendWelcomeEmail = async (email, token) => {
       }
     });
 
-    const info = await transporter.sendMail({
+    await transporter.sendMail({
       from: 'harisbinrehan@gmail.com',
       to: email,
       subject: 'Welcome to Q-commerce',
@@ -26,8 +26,6 @@ const sendWelcomeEmail = async (email, token) => {
         <p>Feel free to explore our website and let us know if you have any questions. Thank You!</p>
       `
     });
-
-    console.log('Message sent: %s', info.messageId);
   } catch (error) {
     console.error('Error sending welcome email:', error);
   }

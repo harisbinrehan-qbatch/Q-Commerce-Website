@@ -3,7 +3,7 @@ import User from '../../models/user';
 
 const ResetPassword = async (req, res) => {
   try {
-    const email = req.user.email || '';
+    const { email } = req.user || '';
 
     const { newPassword } = req.body;
 

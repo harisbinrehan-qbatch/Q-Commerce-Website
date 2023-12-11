@@ -2,38 +2,29 @@ import Address from '../../models/address';
 
 const SaveAddress = async (req, res) => {
   try {
-    const {
-      userId,
-      ...addressInfo
-    } = req.body;
+    const { email } = req.user;
+    const { ...addressInfo } = req.body;
 
-    const existingAddress = await Address.findOne({ userId });
+    const existingAddresses = await Address.find({ email });
 
-    if (existingAddress) {
-      const existingAddressInfo = existingAddress.addressInfo.find(
-        (address) => JSON.stringify(address) === JSON.stringify(addressInfo)
-      );
-
-      if (!existingAddressInfo) {
-        if (addressInfo.isDefault === true) {
-          existingAddress.addressInfo.forEach((info) => {
-            info.isDefault = false;
-          });
-        }
-
-        existingAddress.addressInfo.push(addressInfo);
-        await existingAddress.save();
+    if (existingAddresses.length > 0) {
+      if (addressInfo.isDefault === true) {
+        existingAddresses.forEach((address) => {
+          address.addressInfo.isDefault = false;
+          address.save();
+        });
       }
     } else {
       const newAddress = new Address({
-        userId,
+        email,
         addressInfo: {
           ...addressInfo,
           isDefault: true
         }
       });
 
-      await newAddress.save();
+      const xxx = await newAddress.save();
+      console.log({ xxx });
     }
 
     res.status(201).json({ message: 'Address has been saved successfully' });

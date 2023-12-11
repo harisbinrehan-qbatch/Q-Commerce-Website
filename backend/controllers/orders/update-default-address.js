@@ -2,23 +2,27 @@ import Address from '../../models/address';
 
 const UpdateDefaultAddress = async (req, res) => {
   try {
-    const {
-      userId,
-      index
-    } = req.body;
+    const { email } = req.user || '';
+    const { addressId } = req.body;
 
-    const existingAddress = await Address.findOne({ userId });
+    console.log({
+      email,
+      addressId
+    });
 
-    if (existingAddress) {
-      existingAddress.addressInfo.forEach((address, i) => {
-        if (i === index) {
-          address.isDefault = true;
+    const existingAddresses = await Address.find({ email });
+
+    console.log({ existingAddresses });
+
+    if (existingAddresses) {
+      existingAddresses.forEach((address) => {
+        if (address._id.toString() === addressId) {
+          address.addressInfo.isDefault = true;
         } else {
-          address.isDefault = false;
+          address.addressInfo.isDefault = false;
         }
+        address.save();
       });
-
-      await existingAddress.save();
     } else {
       res.status(404).json({ message: 'User not found' });
       return;

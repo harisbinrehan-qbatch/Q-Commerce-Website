@@ -6,13 +6,11 @@ import User from '../../models/user';
 
 const SavePaymentDetails = async (req, res) => {
   try {
-    const {
-      userId,
-      paymentDetails
-    } = req.body;
+    const { email } = req.user;
+    const { paymentDetails } = req.body;
 
     const response = await User.findOne(
-      { _id: userId },
+      { email },
       {
         stripeId: 1,
         _id: 0

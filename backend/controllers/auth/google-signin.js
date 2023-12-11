@@ -6,20 +6,28 @@ import { stripeSecretKeyClient } from '../../config/config';
 
 const GoogleSignin = async (req, res) => {
   try {
-    let user = {};
     const {
-      name, email, email_verified, picture
+      name,
+      email,
+      email_verified,
+      picture
     } = jwtDecode(
       req.body.credential
     );
 
-    const existingUserWithEmail = await User.findOne({ email });
+    let user = await User.findOne({ email });
 
-    if (!existingUserWithEmail) {
+    if (user) {
+      user.username = name;
+      user.isValidUser = email_verified;
+      user.password = undefined;
+      await user.save();
+    } else {
       const stripe = await stripeSecretKeyClient.customers.create({
         name,
         email
       });
+
       const newUser = new User({
         username: name,
         email,
@@ -28,14 +36,11 @@ const GoogleSignin = async (req, res) => {
       });
 
       user = await newUser.save();
-    } else {
-      user = await User.findOne({ email });
     }
 
     if (email_verified) {
       const {
-        _id,
-        stripeId
+        _id, stripeId
       } = user;
       const token = await GenerateToken(email);
 
@@ -48,9 +53,8 @@ const GoogleSignin = async (req, res) => {
         token
       });
     }
-    return res
-      .status(401)
-      .json({ message: 'Unauthorized' });
+
+    return res.status(401).json({ message: 'Unauthorized' });
   } catch (err) {
     return res
       .status(500)
