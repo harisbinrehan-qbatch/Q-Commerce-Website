@@ -18,7 +18,6 @@ const AddAddress = ({ header, show, setShow }) => {
   const [address, setAddress] = useState('');
   const [isDefault, setIsDefault] = useState(false);
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem('user'));
 
   const handleClose = () => {
     setShow(false);
@@ -26,7 +25,6 @@ const AddAddress = ({ header, show, setShow }) => {
 
   const handleSaveAddress = () => {
     const newAddress = {
-      userId: user.userId,
       name,
       mobile,
       country,

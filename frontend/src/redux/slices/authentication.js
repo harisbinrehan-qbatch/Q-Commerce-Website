@@ -20,6 +20,7 @@ export const verifyUser = createAsyncThunk(
     try {
       const response = await axios.post(
         'http://localhost:5000/v1/auth/verifyUser',
+        null,
         { headers: { Authorization: `Bearer ${body.token}` } }
       );
 
@@ -132,6 +133,7 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(signUpUser.fulfilled, (state) => {
+        message.success('Please verify your email', 2);
         state.signUpError = false;
       })
       .addCase(signUpUser.pending, (state) => {

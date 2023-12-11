@@ -28,15 +28,18 @@ function getColorName(hexCode) {
   return colorMap[hexCode] || hexCode;
 }
 
-function CartItem({ cartItem }) {
+const CartItem = ({ cartItem }) => {
   const { data } = useSelector((state) => state.products);
 
   const dispatch = useDispatch();
 
   const handleIncrementQuantity = () => {
+    console.log({ cartItem });
+    console.log({ data });
     const matchingProduct = data.find(
       (product) => product._id === cartItem._id
     );
+    console.log({ matchingProduct });
 
     if (matchingProduct && cartItem.quantity < matchingProduct.quantity) {
       dispatch(incrementQuantity(cartItem));
@@ -109,6 +112,6 @@ function CartItem({ cartItem }) {
       </div>
     </div>
   );
-}
+};
 
 export default CartItem;

@@ -61,9 +61,12 @@ function UserCart() {
 
   useEffect(() => {
     dispatch(getCartOfSpecificUser());
-    setDefaultAddress(
-      addresses?.addressInfo?.find((address) => address.isDefault) || {}
+
+    const foundDefaultAddress = addresses.find(
+      (address) => address.isDefault === true
     );
+
+    setDefaultAddress(foundDefaultAddress || {});
   }, [addresses, cartProducts]);
 
   const handleAddAddressClick = () => {

@@ -39,12 +39,12 @@ export const addAddress = createAsyncThunk(
 
 export const getAddress = createAsyncThunk(
   'cart/getAddress',
-  async (userId, { getState, rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
       const state = getState();
 
       const response = await axios.get(
-        `http://localhost:5000/v1/orders/address?userId=${userId}`,
+        'http://localhost:5000/v1/orders/address',
         { headers: { Authorization: `Bearer ${state.authentication.user.token}` } }
       );
       return response.data;
@@ -56,13 +56,13 @@ export const getAddress = createAsyncThunk(
 
 export const updateDefaultAddress = createAsyncThunk(
   'cart/updateDefaultAddress',
-  async (requestData, { getState, rejectWithValue }) => {
+  async (addressId, { getState, rejectWithValue }) => {
     try {
       const state = getState();
 
       const response = await axios.put(
         'http://localhost:5000/v1/orders/address',
-        requestData,
+        addressId,
         { headers: { Authorization: `Bearer ${state.authentication.user.token}` } }
       );
       return response.data;
@@ -148,7 +148,7 @@ const cartSlice = createSlice({
   initialState: {
     cartProducts: [],
     userCart: [],
-    addresses: {},
+    addresses: [],
     paymentDetails: [],
     orderSummary: null,
     selectedCardIndex: 0,
@@ -190,49 +190,44 @@ const cartSlice = createSlice({
     },
     addToCart: (state, action) => {
       const { userId, product, productQuantity } = action.payload;
-      state.proceedToCheckout = false;
-
-      if (state.cartProducts) {
-        const userCart = state.cartProducts.find(
-          (cart) => cart.userId === userId
-        );
-
-        if (!userCart) {
-          state.cartProducts.push({
-            userId,
-            products: [{ ...product, quantity: productQuantity }]
-          });
-        } else {
-          const existingProduct = userCart.products.find(
-            (item) => item._id === product._id
+      if (product.quantity > 0) {
+        state.proceedToCheckout = false;
+        if (state.cartProducts) {
+          const userCart = state.cartProducts.find(
+            (cart) => cart.userId === userId
           );
 
-          if (existingProduct) {
-            if (userCart.products) {
-              const matchingProduct = userCart.products.find(
-                (singleProduct) => product._id === singleProduct._id
-              );
-
-              if (matchingProduct) {
-                if (matchingProduct.quantity < product.quantity) {
-                  existingProduct.quantity += productQuantity;
-                }
-              }
-            }
+          if (!userCart) {
+            state.cartProducts.push({
+              userId,
+              products: [{ ...product, quantity: productQuantity }]
+            });
+            message.success('Product added to the cart', 2);
           } else {
-            userCart.products.push({ ...product, quantity: productQuantity });
-          }
-        }
+            const matchingProduct = userCart.products.find(
+              (singleProduct) => product._id === singleProduct._id
+            );
 
-        message.success('Product added to the cart', 2);
-      } else {
-        state.cartProducts = [
-          {
-            userId,
-            products: [{ ...product, quantity: 1 }]
+            if (matchingProduct) {
+              if (matchingProduct.quantity + productQuantity < product.quantity) {
+                matchingProduct.quantity += productQuantity;
+              } else if (matchingProduct.quantity + productQuantity > product.quantity) {
+                matchingProduct.quantity = product.quantity;
+              }
+            } else {
+              userCart.products.push({ ...product, quantity: productQuantity });
+            }
+            message.success('Product already in cart is updated', 2);
           }
-        ];
-      }
+        } else {
+          state.cartProducts = [
+            {
+              userId,
+              products: [{ ...product, quantity: productQuantity }]
+            }
+          ];
+        }
+      } else { message.error('Product is out of stock', 2); }
     },
 
     setOrderSummary: (state, action) => {
@@ -348,7 +343,9 @@ const cartSlice = createSlice({
       })
 
       .addCase(getAddress.fulfilled, (state, action) => {
-        state.addresses = action.payload.addresses[0];
+        console.log(action.payload);
+        state.addresses = action.payload;
+        console.log('in fulfilled', state.addresses);
       })
       .addCase(getAddress.pending, () => {})
       .addCase(getAddress.rejected, () => {})

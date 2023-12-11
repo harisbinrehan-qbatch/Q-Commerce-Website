@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { isEmpty } from 'lodash';
 import {
   Route,
   Routes,
@@ -25,7 +25,7 @@ const AuthRoutes = () => {
   const { pathname } = location;
 
   useEffect(() => {
-    if (user && pathname === '/auth/login') {
+    if (!isEmpty(user) && pathname === '/auth/login') {
       navigate('/');
     }
   }, [user]);

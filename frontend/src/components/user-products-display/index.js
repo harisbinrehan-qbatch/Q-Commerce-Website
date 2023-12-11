@@ -71,7 +71,7 @@ const UserProductsDisplay = ({
             handleNextImage={handleNextImage}
             handlePreviousImage={handlePreviousImage}
             images={product.images}
-            onChange={(index) => console.log(index)}
+            onChange={(index) => setCurrentImageIndex(index)}
           />
 
           <div className="mt-4 ms-4 pt-3">
@@ -130,9 +130,13 @@ const UserProductsDisplay = ({
               />
             </div>
             <div>
-              <Link to="./shopping-bag">
+              {product.quantity > 0 ? (
+                <Link to="./shopping-bag">
+                  <CustomBtn btnText="Add to cart" onClick={handleAddToCart} />
+                </Link>
+              ) : (
                 <CustomBtn btnText="Add to cart" onClick={handleAddToCart} />
-              </Link>
+              )}
             </div>
           </div>
         ) : (

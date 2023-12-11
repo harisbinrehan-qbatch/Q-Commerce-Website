@@ -8,10 +8,7 @@ import CustomBtn from '../button';
 import './style.css';
 
 const ChangeAddressCanvas = ({
-  header,
-  show,
-  setShow,
-  setAddAddressShow
+  header, show, setShow, setAddAddressShow
 }) => {
   const { addresses } = useSelector((state) => state.cart);
 
@@ -53,7 +50,7 @@ const ChangeAddressCanvas = ({
         <div className="d-flex offcanvas-body">
           <Offcanvas.Body>
             <div className="container pt-2">
-              {addresses?.addressInfo?.map((address, index) => (
+              {addresses.map((address, index) => (
                 <div
                   key={index}
                   className="mt-3"
@@ -64,7 +61,7 @@ const ChangeAddressCanvas = ({
                     mobile={address.mobile}
                     address={address.address}
                     isDefault={address.isDefault}
-                    index={index}
+                    addressId={address._id}
                   />
                 </div>
               ))}
