@@ -39,17 +39,11 @@ const GoogleSignin = async (req, res) => {
     }
 
     if (email_verified) {
-      const {
-        _id, stripeId
-      } = user;
       const token = await GenerateToken(email);
 
       return res.status(200).json({
         username: name,
         image: picture,
-        userId: _id,
-        stripeId,
-        email,
         token
       });
     }

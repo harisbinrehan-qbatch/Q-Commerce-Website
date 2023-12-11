@@ -18,37 +18,38 @@ export const SignIn = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ message: 'Not Found: User not found' });
+      return res.status(404).json({ message: ' User not found' });
     }
-
+    if (user.password === undefined && user.isValidUser === true) {
+      return res
+        .status(401)
+        .json({ message: 'Please login with your same gmail account' });
+    }
     if (!user.isValidUser) {
       return res
         .status(401)
-        .json({ message: 'Unauthorized: User account is not valid' });
+        .json({ message: 'User account is not verified' });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (isPasswordValid) {
       const {
-        username, _id, stripeId, mobile, isAdmin
+        username, isAdmin
       } = user;
 
       const token = GenerateToken(email);
 
       return res.status(200).json({
         username,
-        userId: _id,
-        stripeId,
-        email,
         token,
-        mobile,
         isAdmin
       });
     }
+
     return res
       .status(401)
-      .json({ message: 'Unauthorized: Invalid credentials' });
+      .json({ message: 'Invalid credentials' });
   } catch (err) {
     return res
       .status(500)
