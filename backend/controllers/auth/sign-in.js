@@ -23,7 +23,7 @@ export const SignIn = async (req, res) => {
     if (user.password === undefined && user.isValidUser === true) {
       return res
         .status(401)
-        .json({ message: 'Please login with your same gmail account' });
+        .json({ message: 'Please use Google Login feature for this gmail account' });
     }
     if (!user.isValidUser) {
       return res
