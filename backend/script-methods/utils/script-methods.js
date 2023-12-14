@@ -9,7 +9,7 @@ const ScriptMethods = async ({ method }) => {
       .schedule('in 5 seconds')
       .save();
 
-    console.log('\n', 'Dashboard Job Has Been Started');
+    console.log('Dashboard Job Has Been Started');
 
     break;
   }

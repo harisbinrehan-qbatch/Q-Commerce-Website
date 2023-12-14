@@ -5,6 +5,7 @@ import SearchProducts from './search-products';
 import FetchAdminProducts from './fetch-admin-products';
 import FetchUserProducts from './fetch-user-products';
 import AddBulkProducts from './add-bulk-products';
+import FetchDisplayProduct from './get-display-product';
 
 export {
   AddProduct,
@@ -13,5 +14,6 @@ export {
   DeleteProduct,
   UpdateProduct,
   SearchProducts,
-  AddBulkProducts
+  AddBulkProducts,
+  FetchDisplayProduct
 };

@@ -5,14 +5,7 @@ const UpdateDefaultAddress = async (req, res) => {
     const { email } = req.user || '';
     const { addressId } = req.body;
 
-    console.log({
-      email,
-      addressId
-    });
-
     const existingAddresses = await Address.find({ email });
-
-    console.log({ existingAddresses });
 
     if (existingAddresses) {
       existingAddresses.forEach((address) => {

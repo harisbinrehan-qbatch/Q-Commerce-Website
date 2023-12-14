@@ -29,7 +29,7 @@ Agenda.define(
         }
       ]);
 
-      console.log({ totalPaidOrders });
+      // console.log({ totalPaidOrders });
 
       const [totalUnpaidOrders] = await Order.aggregate([
         { $match: { isPaid: false } },
@@ -41,14 +41,14 @@ Agenda.define(
         }
       ]);
 
-      console.log({ totalUnpaidOrders });
+      // console.log({ totalUnpaidOrders });
 
       const topSelling = await Product.aggregate([
         { $sort: { sold: -1 } },
         { $limit: 10 }
       ]);
 
-      console.log({ topSelling });
+      // console.log({ topSelling });
 
       const calculateOneYearStats = async () => {
         const oneYearStats = [];
@@ -93,7 +93,7 @@ Agenda.define(
 
       const oneYearStats = await calculateOneYearStats();
 
-      console.log({ oneYearStats });
+      // console.log({ oneYearStats });
 
       job.attrs.progress = 50;
       await job.save();
@@ -118,7 +118,7 @@ Agenda.define(
           }
         }
       ]).exec();
-      console.log({ todayStats });
+      // console.log({ todayStats });
 
       job.attrs.progress = 50;
       await job.save();
@@ -144,7 +144,7 @@ Agenda.define(
         }
       ]).exec();
 
-      console.log({ sevenDayStats });
+      // console.log({ sevenDayStats });
 
       job.attrs.progress = 75;
       await job.save();
@@ -170,7 +170,7 @@ Agenda.define(
         }
       ]).exec();
 
-      console.log({ thirtyDayStats });
+      // console.log({ thirtyDayStats });
 
       job.attrs.lockedAt = null;
       job.attrs.state = JOB_STATES.COMPLETED;

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const NotificationSchema = new mongoose.Schema({
-  userId: {
+  email: {
     type: String,
     required: true
   },

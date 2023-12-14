@@ -23,8 +23,7 @@ const SaveAddress = async (req, res) => {
         }
       });
 
-      const xxx = await newAddress.save();
-      console.log({ xxx });
+      await newAddress.save();
     }
 
     res.status(201).json({ message: 'Address has been saved successfully' });

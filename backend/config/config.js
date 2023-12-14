@@ -5,7 +5,8 @@ const {
   MONGO_URL,
   PUBLISHABLE_KEY,
   SECRET_KEY,
-  PASSPORT_SECRET_KEY
+  PASSPORT_SECRET_KEY,
+  ADMIN_EMAIL
 } = process.env;
 
 const stripePublishableClient = stripe(PUBLISHABLE_KEY);
@@ -15,5 +16,6 @@ export {
   MONGO_URL,
   stripePublishableClient,
   stripeSecretKeyClient,
-  PASSPORT_SECRET_KEY
+  PASSPORT_SECRET_KEY,
+  ADMIN_EMAIL
 };

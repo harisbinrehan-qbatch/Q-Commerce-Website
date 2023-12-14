@@ -3,9 +3,7 @@ import Product from '../../models/product';
 const FetchUserProducts = async (req, res) => {
   try {
     const {
-      limit,
-      skip,
-      filterObject
+      limit, skip, filterObject
     } = req.query;
     let limitValue = 0;
     let skipValue = 0;
@@ -58,8 +56,19 @@ const FetchUserProducts = async (req, res) => {
       .skip(skipValue)
       .limit(limitValue);
 
+    const modifiedProducts = products.map((product) => {
+      const modifiedProduct = { ...product.toObject() };
+
+      if (modifiedProduct?.images?.length > 0) {
+        modifiedProduct.images = [modifiedProduct.images[0]];
+      }
+
+      return modifiedProduct;
+    });
+
     return res.status(200).json({
-      products, totalCount
+      products: modifiedProducts,
+      totalCount
     });
   } catch (err) {
     return res

@@ -4,6 +4,7 @@ import User from '../../models/user';
 import Notification from '../../models/notification';
 import ChargeCustomer from '../stripe/utils/charge-customer';
 import generateOrderId from '../../utils/generate-order-id';
+import { ADMIN_EMAIL } from '../../config/config';
 
 const PlaceOrder = async (req, res) => {
   try {
@@ -14,10 +15,7 @@ const PlaceOrder = async (req, res) => {
       totalAmount
     } = req.body;
 
-    const {
-      _id: userId,
-      stripeId
-    } = await User.findOne({ email });
+    const { stripeId } = await User.findOne({ email });
 
     const orderId = generateOrderId();
 
@@ -59,7 +57,7 @@ const PlaceOrder = async (req, res) => {
     });
 
     const adminNotification = new Notification({
-      userId,
+      email: ADMIN_EMAIL,
       text: `Order# ${orderId} has been placed`,
       isRead: false,
       forAdmin: true
@@ -68,7 +66,7 @@ const PlaceOrder = async (req, res) => {
     await adminNotification.save();
 
     const userNotification = new Notification({
-      userId,
+      email,
       text: `Order# ${orderId} has been placed`,
       isRead: false,
       forAdmin: false

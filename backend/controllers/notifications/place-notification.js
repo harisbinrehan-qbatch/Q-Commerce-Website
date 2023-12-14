@@ -3,11 +3,12 @@ import Notification from '../../models/notification';
 const PlaceNotification = async (req, res) => {
   try {
     const {
-      userId, text
+      email,
+      text
     } = req.body;
 
     const newNotification = new Notification({
-      userId,
+      email,
       text,
       isRead: false
     });

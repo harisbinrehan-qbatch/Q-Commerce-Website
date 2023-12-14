@@ -8,7 +8,8 @@ import {
   UpdateProduct,
   FetchUserProducts,
   FetchAdminProducts,
-  AddBulkProducts
+  AddBulkProducts,
+  FetchDisplayProduct
 } from '../controllers/products';
 
 const router = express.Router();
@@ -16,6 +17,8 @@ const router = express.Router();
 const upload = multerConfig();
 
 router.get('/userProducts', FetchUserProducts);
+
+router.get('/displayProduct', FetchDisplayProduct);
 
 router.get(
   '/adminProducts',

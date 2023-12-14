@@ -2,7 +2,12 @@ import Notification from '../../models/notification';
 
 const GetNotifications = async (req, res) => {
   try {
-    const notifications = await Notification.find();
+    const { email } = req.user || '';
+
+    const notifications = await Notification.find({
+      email,
+      isRead: { $ne: true }
+    });
 
     if (notifications.length === 0) {
       return res.status(404).json({ error: 'No notifications found' });
