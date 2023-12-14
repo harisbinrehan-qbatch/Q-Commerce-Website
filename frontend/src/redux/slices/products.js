@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { message, notification } from 'antd';
+import { isEmpty } from 'lodash';
 
 export const fetchUserProducts = createAsyncThunk(
   'products/fetchUserProducts',
@@ -228,7 +229,11 @@ const productsSlice = createSlice({
       })
       .addCase(fetchUserProducts.pending, (state) => {
         state.isProductError = false;
-        state.productsLoading = true;
+        if (isEmpty(state.data)) {
+          state.productsLoading = true;
+        } else {
+          state.productsLoading = false;
+        }
       })
       .addCase(fetchUserProducts.rejected, (state, action) => {
         state.productMessage = action.payload || 'Internal Server Error.';
