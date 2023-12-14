@@ -29,6 +29,7 @@
 .navbar-sticky-section {
   min-height: 54px;
   position: sticky;
+  padding-top: 8px;
   top: 0px;
   background-color: rgb(255, 255, 255);
 }

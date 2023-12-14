@@ -8,7 +8,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchDisplayProduct, fetchUserProducts } from '../../redux/slices/products';
 import CustomBtn from '../button';
 import './style.css';
-import Loading from '../loading';
 
 const UserProductsDisplay = lazy(() => import('../user-products-display'));
 
@@ -149,7 +148,7 @@ const UserProducts = () => {
             </div>
           </div>
 
-          <Suspense fallback={<Loading />}>
+          <Suspense>
             <UserProductsDisplay
               product={displayProduct}
               currentImageIndex={currentImageIndex}

@@ -1,9 +1,13 @@
 import { useLocation } from 'react-router';
+import ReactLoading from 'react-loading';
+import { useSelector } from 'react-redux';
 import CustomSidebar from '../components/admin-sidebar';
 import CustomNavbar from '../components/navbar';
 
 const AdminLayout = ({ children, setIsLoggedIn }) => {
   const location = useLocation();
+  const { productsLoading } = useSelector((state) => state.products);
+  const { authLoading } = useSelector((state) => state.authentication);
 
   const { pathname } = location;
 
@@ -24,6 +28,11 @@ const AdminLayout = ({ children, setIsLoggedIn }) => {
       ) : (
         <div className="d-flex">
           <div className="w-100 p-4">{children}</div>
+        </div>
+      )}
+      {(authLoading || productsLoading) && (
+        <div className="loading-overlay">
+          <ReactLoading type="bars" color="#38b6f1" height={100} width={100} />
         </div>
       )}
     </div>

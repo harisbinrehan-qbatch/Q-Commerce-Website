@@ -114,13 +114,19 @@ const authSlice = createSlice({
     loginError: true,
     user: {},
     isAdmin: false,
-    loading: false,
+    authLoading: false,
     isUser: false,
     isVerifiedUser: false,
     tokenExpiry: false,
     token: ''
   },
   reducers: {
+    setLoadingTrue: (state) => {
+      state.authLoading = true;
+    },
+    setLoadingFalse: (state) => {
+      state.authLoading = false;
+    },
     logout: (state) => {
       localStorage.removeItem('user');
       state.user = '';
@@ -135,12 +141,15 @@ const authSlice = createSlice({
       .addCase(signUpUser.fulfilled, (state) => {
         message.success('Please verify your email', 2);
         state.signUpError = false;
+        state.authLoading = false;
       })
       .addCase(signUpUser.pending, (state) => {
         state.signUpError = false;
+        state.authLoading = true;
       })
       .addCase(signUpUser.rejected, (state, action) => {
         state.signUpError = true;
+        state.authLoading = false;
         state.signUpMessage = action.payload.message || 'Signup failed';
         message.error(state.signUpMessage, 2);
       })
@@ -157,27 +166,35 @@ const authSlice = createSlice({
           state.isAdmin = false;
           state.isUser = true;
         }
+        state.authLoading = false;
         state.loginMessage = action.payload.message || 'Login Successful';
         message.success('Login Successful', 2);
       })
-      .addCase(loginUser.pending, () => {
+      .addCase(loginUser.pending, (state) => {
+        state.authLoading = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loginError = true;
+        state.authLoading = false;
         state.loginMessage = action.payload?.message || 'Login failed';
         message.error(state.loginMessage, 2);
       })
 
       .addCase(sendEmail.fulfilled, (state, action) => {
+        state.authLoading = false;
         message.success(action.payload.message || 'Email sent successfully', 2);
       })
-      .addCase(sendEmail.pending, () => {})
+      .addCase(sendEmail.pending, (state) => {
+        state.authLoading = true;
+      })
       .addCase(sendEmail.rejected, (state, action) => {
+        state.authLoading = false;
         message.error(action.payload.message || 'Error Sending Email', 2);
       })
 
       .addCase(resetPassword.fulfilled, (state, action) => {
         state.resetPasswordError = false;
+        state.authLoading = false;
         state.resetPasswordMessage = action.payload.message || 'Password reset successful';
         if (state.resetPasswordMessage === 'Invalid or expired token') {
           message.warning(state.resetPasswordMessage, 2);
@@ -186,9 +203,11 @@ const authSlice = createSlice({
         }
       })
       .addCase(resetPassword.pending, (state) => {
+        state.authLoading = true;
         state.resetPasswordError = false;
       })
       .addCase(resetPassword.rejected, (state, action) => {
+        state.authLoading = false;
         state.resetPasswordError = true;
         state.resetPasswordMessage = action.payload.message
           || 'Link is already used to reset password. Please try again';
@@ -197,11 +216,15 @@ const authSlice = createSlice({
 
       .addCase(verifyUser.fulfilled, (state, action) => {
         state.isVerifiedUser = true;
+        state.authLoading = false;
         message.success(action.payload.message, 2);
       })
-      .addCase(verifyUser.pending, () => {})
+      .addCase(verifyUser.pending, (state) => {
+        state.authLoading = true;
+      })
       .addCase(verifyUser.rejected, (state) => {
         state.isVerifiedUser = false;
+        state.authLoading = false;
         message.error('Verification failed', 2);
       })
 
@@ -220,7 +243,7 @@ const authSlice = createSlice({
 
       .addCase(signinWithGoogle.fulfilled, (state, action) => {
         state.loginError = false;
-        state.loading = false;
+        state.authLoading = false;
         state.user = action.payload;
         state.isAdmin = false;
         state.isUser = true;
@@ -228,15 +251,15 @@ const authSlice = createSlice({
         message.success('Login Successful', 2);
       })
       .addCase(signinWithGoogle.pending, (state) => {
-        state.loading = true;
+        state.authLoading = true;
       })
       .addCase(signinWithGoogle.rejected, (state) => {
         state.loginError = true;
-        state.loading = false;
+        state.authLoading = false;
         message.error('Login failed', 2);
       });
   }
 });
 
-export const { logout, getToken, getUser } = authSlice.actions;
+export const { logout, setLoadingTrue, setLoadingFalse } = authSlice.actions;
 export default authSlice;

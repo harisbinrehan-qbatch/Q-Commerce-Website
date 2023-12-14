@@ -176,7 +176,7 @@ const productsSlice = createSlice({
     totalCount: 0,
     isProductError: false,
     productMessage: null,
-    loading: false,
+    productsLoading: false,
     editSuccess: false,
     deleteSuccess: false,
     addSuccess: false
@@ -224,39 +224,40 @@ const productsSlice = createSlice({
         }
         state.displayProduct = action.payload.products[0];
         state.isProductError = false;
-        state.loading = false;
+        state.productsLoading = false;
       })
       .addCase(fetchUserProducts.pending, (state) => {
         state.isProductError = false;
-        state.loading = true;
+        state.productsLoading = true;
       })
       .addCase(fetchUserProducts.rejected, (state, action) => {
         state.productMessage = action.payload || 'Internal Server Error.';
         state.data = [];
         state.isProductError = true;
-        state.loading = false;
+        state.productsLoading = false;
       })
 
       .addCase(fetchAdminProducts.fulfilled, (state, action) => {
         state.data = action.payload.products;
         state.totalCount = action.payload.totalCount;
         state.isProductError = false;
-        state.loading = false;
+        state.productsLoading = false;
         state.importBulkSuccess = false;
       })
       .addCase(fetchAdminProducts.pending, (state) => {
         state.isProductError = false;
-        state.loading = true;
+        state.productsLoading = true;
       })
       .addCase(fetchAdminProducts.rejected, (state, action) => {
         state.productMessage = action.payload || 'Internal Server Error.';
         state.data = [];
         state.isProductError = true;
-        state.loading = false;
+        state.productsLoading = false;
       })
 
       .addCase(addProduct.fulfilled, (state) => {
         state.addSuccess = true;
+        state.productsLoading = false;
         state.productMessage = 'Product added Successfully';
         notification.success({
           description: state.productMessage,
@@ -265,10 +266,12 @@ const productsSlice = createSlice({
         });
       })
       .addCase(addProduct.pending, (state) => {
+        state.productsLoading = true;
         state.addSuccess = false;
       })
       .addCase(addProduct.rejected, (state, action) => {
         state.addSuccess = false;
+        state.productsLoading = false;
         state.productMessage = action.payload.message || 'Error adding product';
         notification.error({
           description: state.productMessage,
@@ -278,14 +281,17 @@ const productsSlice = createSlice({
       })
 
       .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.productsLoading = false;
         state.productMessage = action.payload.message || 'Product deleted Successfully';
         state.deleteSuccess = true;
         message.success(state.productMessage, 2);
       })
       .addCase(deleteProduct.pending, (state) => {
+        state.productsLoading = true;
         state.deleteSuccess = false;
       })
       .addCase(deleteProduct.rejected, (state) => {
+        state.productsLoading = false;
         state.deleteSuccess = false;
         state.productMessage = 'Error deleting product';
         message.error(state.productMessage, 2);
@@ -294,14 +300,17 @@ const productsSlice = createSlice({
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.data = action.payload.products;
         state.editSuccess = true;
+        state.productsLoading = false;
         message.success('Product updated Successfully', 2);
       })
       .addCase(updateProduct.pending, (state) => {
         state.editSuccess = false;
+        state.productsLoading = true;
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.productMessage = action.payload.message || 'Error Updating product';
         state.editSuccess = false;
+        state.productsLoading = false;
         message.error(state.productMessage, 2);
       })
 
@@ -316,11 +325,15 @@ const productsSlice = createSlice({
 
       .addCase(addBulkProducts.fulfilled, (state, action) => {
         state.importBulkSuccess = true;
+        state.productsLoading = false;
         state.bulkUploadResult = action.payload.bulkUploadResult;
       })
-      .addCase(addBulkProducts.pending, () => {})
+      .addCase(addBulkProducts.pending, (state) => {
+        state.productsLoading = true;
+      })
       .addCase(addBulkProducts.rejected, (state) => {
         state.importBulkSuccess = false;
+        state.productsLoading = false;
         state.bulkUploadResult = {};
       });
   }
