@@ -5,15 +5,15 @@ import {
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchUserProducts } from '../../redux/slices/products';
+import { fetchDisplayProduct, fetchUserProducts } from '../../redux/slices/products';
 import CustomBtn from '../button';
 import './style.css';
 import Loading from '../loading';
 
 const UserProductsDisplay = lazy(() => import('../user-products-display'));
 
-const UserProducts = ({ selectedProduct, setSelectedProduct }) => {
-  const products = useSelector((state) => state.products.data);
+const UserProducts = () => {
+  const { data: products, displayProduct } = useSelector((state) => state.products);
   const { totalCount, isFilter } = useSelector((state) => state.products);
   const [loadingMore, setLoadingMore] = useState(false);
   const [skip, setSkip] = useState(0);
@@ -68,7 +68,7 @@ const UserProducts = ({ selectedProduct, setSelectedProduct }) => {
   }, [loadingMore]);
 
   const showProductDetails = (product) => {
-    setSelectedProduct(product);
+    dispatch(fetchDisplayProduct(product._id));
     setCurrentImageIndex(0);
   };
 
@@ -151,7 +151,7 @@ const UserProducts = ({ selectedProduct, setSelectedProduct }) => {
 
           <Suspense fallback={<Loading />}>
             <UserProductsDisplay
-              product={selectedProduct}
+              product={displayProduct}
               currentImageIndex={currentImageIndex}
               setCurrentImageIndex={setCurrentImageIndex}
             />

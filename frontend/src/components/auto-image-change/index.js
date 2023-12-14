@@ -12,7 +12,7 @@ const AutoImageChange = ({
 }) => {
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (currentImageIndex < images.length - 1) {
+      if (images && currentImageIndex < images.length - 1) {
         setCurrentImageIndex((prevIndex) => prevIndex + 1);
       } else {
         setCurrentImageIndex(0);
@@ -33,22 +33,28 @@ const AutoImageChange = ({
         variant="light"
         btnText="<"
         onClick={handlePreviousImage}
-        disabled={currentImageIndex === 0}
+        disabled={currentImageIndex === 0 || !images || !images.length}
       />
 
-      <img
-        src={`http://localhost:5000/${images[currentImageIndex]}`}
-        alt="product"
-        className="user-products-display-image"
-        style={{ width: '100%' }}
-      />
+      {images && images[currentImageIndex] && (
+        <img
+          src={`http://localhost:5000/${images[currentImageIndex]}`}
+          alt="product"
+          className="user-products-display-image"
+          style={{ width: '100%' }}
+        />
+      )}
+
       <div className="justify-content-center align-items-center">
         <CustomBtn
           className="product-display-image-button ms-3"
           variant="light"
           btnText=">"
           onClick={handleNextImage}
-          disabled={currentImageIndex === product.images.length - 1}
+          disabled={
+            currentImageIndex
+            === (product?.images ? product.images.length - 1 : 0)
+          }
         />
       </div>
     </div>

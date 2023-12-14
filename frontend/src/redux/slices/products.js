@@ -66,6 +66,20 @@ export const fetchAdminProducts = createAsyncThunk(
   }
 );
 
+export const fetchDisplayProduct = createAsyncThunk(
+  'products/fetchDisplayProduct',
+  async (_id, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/v1/products/displayProduct?_id=${_id}`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue({ error: 'Network Error', originalError: error });
+    }
+  }
+);
+
 export const addProduct = createAsyncThunk(
   'products/addProduct',
   async (requestData, { getState, rejectWithValue }) => {
@@ -154,6 +168,7 @@ const productsSlice = createSlice({
   initialState: {
     isFilter: false,
     data: [],
+    displayProduct: [],
     bulkUploadResult: {},
     importBulkSuccess: false,
     page: 1,
@@ -207,6 +222,7 @@ const productsSlice = createSlice({
           state.data = [...state.data, ...action.payload.products];
           state.totalCount = action.payload.totalCount;
         }
+        state.displayProduct = action.payload.products[0];
         state.isProductError = false;
         state.loading = false;
       })
@@ -286,6 +302,15 @@ const productsSlice = createSlice({
       .addCase(updateProduct.rejected, (state, action) => {
         state.productMessage = action.payload.message || 'Error Updating product';
         state.editSuccess = false;
+        message.error(state.productMessage, 2);
+      })
+
+      .addCase(fetchDisplayProduct.fulfilled, (state, action) => {
+        state.displayProduct = action.payload.displayProduct;
+      })
+      .addCase(fetchDisplayProduct.pending, () => {})
+      .addCase(fetchDisplayProduct.rejected, (state, action) => {
+        state.productMessage = action.payload.message || 'Error displaying product';
         message.error(state.productMessage, 2);
       })
 

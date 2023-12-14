@@ -343,9 +343,7 @@ const cartSlice = createSlice({
       })
 
       .addCase(getAddress.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.addresses = action.payload;
-        console.log('in fulfilled', state.addresses);
       })
       .addCase(getAddress.pending, () => {})
       .addCase(getAddress.rejected, () => {})

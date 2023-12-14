@@ -34,12 +34,9 @@ const CartItem = ({ cartItem }) => {
   const dispatch = useDispatch();
 
   const handleIncrementQuantity = () => {
-    console.log({ cartItem });
-    console.log({ data });
     const matchingProduct = data.find(
       (product) => product._id === cartItem._id
     );
-    console.log({ matchingProduct });
 
     if (matchingProduct && cartItem.quantity < matchingProduct.quantity) {
       dispatch(incrementQuantity(cartItem));

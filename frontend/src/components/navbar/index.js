@@ -42,16 +42,6 @@ function CustomNavbar() {
 
   const { notifications } = useSelector((state) => state.order);
 
-  const unreadAdminNotificationsCount = notifications.filter(
-    (notification) => notification.isRead === false && notification.forAdmin === true
-  ).length;
-
-  const unreadUserNotifications = notifications.filter(
-    (notification) => notification.userId === user.userId
-      && notification.forAdmin === false
-      && notification.isRead === false
-  );
-
   const handleMoveToCart = () => {
     dispatch(setOrderSuccess());
     dispatch(moveToCartFromNavbar());
@@ -65,13 +55,13 @@ function CustomNavbar() {
     navigate('/');
   };
 
-  const handleMarkAsRead = (notificationId) => {
-    setMarkAsRead(true);
-    dispatch(readNotification(notificationId));
-  };
-
   const handleNavigateHome = () => {
     navigate('/');
+  };
+
+  const handleMarkAsRead = (notificationId) => {
+    dispatch(readNotification(notificationId));
+    setMarkAsRead(true);
   };
 
   useEffect(() => {
@@ -108,12 +98,12 @@ function CustomNavbar() {
                             style={{ color: '#007BFF' }}
                           >
                             <span className="notification-badge bg-primary">
-                              {unreadAdminNotificationsCount || 0}
+                              {notifications.length || 0}
                             </span>
                           </i>
                         )}
                       >
-                        {unreadAdminNotificationsCount > 0 ? (
+                        {notifications.length > 0 ? (
                           notifications
                             .filter(
                               (notification) => !notification.isRead
@@ -145,13 +135,13 @@ function CustomNavbar() {
                             style={{ color: '#007BFF' }}
                           >
                             <span className="notification-badge bg-primary">
-                              {unreadUserNotifications?.length || 0}
+                              {notifications.length || 0}
                             </span>
                           </i>
                         )}
                       >
-                        {unreadUserNotifications.length > 0 ? (
-                          unreadUserNotifications
+                        {notifications.length ? (
+                          notifications
                             .filter(
                               (notification) => notification.forAdmin === false
                             )
