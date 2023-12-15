@@ -26,12 +26,20 @@
   letter-spacing: 0px;
   text-align: right;
 }
-.navbar-sticky-section {
+body.light .navbar-sticky-section {
   min-height: 54px;
   position: sticky;
   padding-top: 8px;
   top: 0px;
   background-color: rgb(255, 255, 255);
+}
+
+body.dark .navbar-sticky-section {
+  min-height: 54px;
+  position: sticky;
+  padding-top: 8px;
+  top: 0px;
+background-color: rgb(196, 196, 196);
 }
 
 .clickable {

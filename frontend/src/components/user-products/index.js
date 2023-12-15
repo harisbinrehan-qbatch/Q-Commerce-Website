@@ -1,12 +1,15 @@
 import { Spinner } from 'react-bootstrap';
-import { Empty } from 'antd';
-import {
-  useEffect, useState, Suspense, lazy
-} from 'react';
+import { Empty, Image } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import {
+  useEffect,
+  useState,
+  Suspense, lazy
+} from 'react';
 
 import { fetchDisplayProduct, fetchUserProducts } from '../../redux/slices/products';
 import CustomBtn from '../button';
+
 import './style.css';
 
 const UserProductsDisplay = lazy(() => import('../user-products-display'));
@@ -19,6 +22,9 @@ const UserProducts = () => {
   const [limit, setLimit] = useState(4);
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const { theme } = useSelector((state) => state.authentication);
+  document.body.className = theme;
 
   const dispatch = useDispatch();
 
@@ -82,11 +88,18 @@ const UserProducts = () => {
           <div className="d-flex gap-5 p-4 flex-wrap user-products-main-div">
             {products.map((product) => (
               <div className="product-div p-3" key={product.id}>
-                <img
-                  src={`http://localhost:5000/${product.images[0]}`}
-                  alt="product"
-                  className="user-product-image p-2"
-                />
+                <Image.PreviewGroup
+                  items={[`http://localhost:5000/${product.images[0]}`]}
+                >
+                  <Image
+                    width={257}
+                    height={300}
+                    src={`http://localhost:5000/${product.images[0]}`}
+                    alt="product"
+                    className="user-product-image p-2"
+                  />
+                </Image.PreviewGroup>
+
                 <p className="p-1 flex-wrap w-100">{product.name}</p>
                 <div className="d-flex ps-1">
                   <p>Price:</p>
@@ -125,7 +138,7 @@ const UserProducts = () => {
             ))}
             <div>
               {products.length === totalCount ? (
-                <b style={{ color: 'grey' }}>No more products found</b>
+                <b style={{ color: 'grey' }} className="ps-5">No more products found</b>
               ) : !isFilter ? (
                 <b style={{ color: 'grey' }}>
                   {totalCount}

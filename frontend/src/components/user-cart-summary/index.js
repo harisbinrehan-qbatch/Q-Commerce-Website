@@ -11,6 +11,10 @@ function UserCartSummary() {
   const { userCart, orderSummary, proceedToCheckout } = useSelector(
     (state) => state.cart
   );
+
+  const { theme } = useSelector((state) => state.authentication);
+  document.body.className = theme;
+
   const dispatch = useDispatch();
 
   const handleSetProceedToCheckout = () => {
@@ -44,7 +48,7 @@ function UserCartSummary() {
     <div className="card-summary-main-div mb-3">
       {proceedToCheckout && isEmpty(userCart.products) ? (
         <div className="p-3">
-          <h3 className="heading" style={{ color: 'yellow' }}>
+          <h3 className="summary-heading">
             Help ?
           </h3>
 
@@ -56,7 +60,7 @@ function UserCartSummary() {
         </div>
       ) : (
         <div className="p-3">
-          <h3 className="heading">Order Summary</h3>
+          <h3 className="summary-heading">Order Summary</h3>
           <h5 className="pt-3">
             <b>Sub Total:</b>
             {' '}

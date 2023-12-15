@@ -1,5 +1,11 @@
 import { useEffect } from 'react';
-import CustomBtn from '../button';
+import { Image } from 'antd';
+import {
+  LeftCircleFilled,
+  RightCircleFilled
+} from '@ant-design/icons';
+
+import './style.css';
 
 const AutoImageChange = ({
   images,
@@ -17,7 +23,7 @@ const AutoImageChange = ({
       } else {
         setCurrentImageIndex(0);
       }
-    }, 2000);
+    }, 3000);
 
     return () => clearInterval(intervalId);
   }, [currentImageIndex, images]);
@@ -28,29 +34,42 @@ const AutoImageChange = ({
 
   return (
     <div className="d-flex">
-      <CustomBtn
-        className="product-display-image-button"
-        variant="light"
-        btnText="<"
-        onClick={handlePreviousImage}
-        disabled={currentImageIndex === 0 || !images || !images.length}
-      />
-
-      {images && images[currentImageIndex] && (
-        <img
-          src={`http://localhost:5000/${images[currentImageIndex]}`}
-          alt="product"
-          className="user-products-display-image"
-          style={{ width: '100%' }}
+      <div className="justify-content-center align-items-center">
+        <LeftCircleFilled
+          className={`product-display-image-button me-3 ${
+            currentImageIndex === 0 || !images || !images.length
+              ? ''
+              : 'enabled-icon'
+          }`}
+          onClick={handlePreviousImage}
+          // disabled={currentImageIndex === 0 || !images || !images.length}
         />
+      </div>
+      {images && images[currentImageIndex] && (
+        <Image.PreviewGroup
+          items={product.images.map(
+            (image) => `http://localhost:5000/${image}`
+          )}
+        >
+          <Image
+            src={`http://localhost:5000/${images[currentImageIndex]}`}
+            alt="product"
+            className="user-products-display-image"
+            width={300}
+            height={350}
+          />
+        </Image.PreviewGroup>
       )}
 
       <div className="justify-content-center align-items-center">
-        <CustomBtn
-          className="product-display-image-button ms-3"
-          variant="light"
-          btnText=">"
+        <RightCircleFilled
           onClick={handleNextImage}
+          className={`product-display-image-button ms-3 ${
+            currentImageIndex
+            === (product?.images ? product.images.length - 1 : 0)
+              ? ''
+              : 'enabled-icon'
+          }`}
           disabled={
             currentImageIndex
             === (product?.images ? product.images.length - 1 : 0)

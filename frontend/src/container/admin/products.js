@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
 import { Table } from 'react-bootstrap';
 
-import { Empty } from 'antd';
+import { Empty, Pagination } from 'antd';
 import Pencil from '../../assets/images/Pencil-square.svg';
-import ProductsPaginationComponent from '../../components/products-pagination';
+// import ProductsPaginationComponent from '../../components/products-pagination';
 import Trash from '../../assets/images/Trash.svg';
 import {
   deleteProduct,
   fetchAdminProducts,
   setPageOne,
-  incrementPage,
+  // incrementPage,
   decrementPage,
   setLimit,
   setAnyPage
@@ -54,7 +54,13 @@ const Products = () => {
 
   const [bulkProducts, setBulkProducts] = useState([]);
   const {
-    page, editSuccess, importBulkSuccess, deleteSuccess, addSuccess, limit, totalCount
+    page,
+    editSuccess,
+    importBulkSuccess,
+    deleteSuccess,
+    addSuccess,
+    limit,
+    totalCount
   } = useSelector((state) => state.products);
 
   const dispatch = useDispatch();
@@ -97,9 +103,9 @@ const Products = () => {
     }
   };
 
-  const PageChangeFunction = (newPage) => {
-    dispatch(setAnyPage(newPage));
-  };
+  // const PageChangeFunction = (newPage) => {
+  //   dispatch(setAnyPage(newPage));
+  // };
 
   useEffect(() => {
     dispatch(fetchAdminProducts());
@@ -209,8 +215,20 @@ const Products = () => {
                 </Table>
               </div>
 
-              <div className="d-flex justify-content-end pe-3">
-                <ProductsPaginationComponent
+              <div className="d-flex justify-content-center mt-4">
+                <Pagination
+                  current={page}
+                  total={totalCount}
+                  pageSize={limit}
+                  onChange={(newPage) => dispatch(setAnyPage(newPage))}
+                  onShowSizeChange={(current, size) => {
+                    dispatch(setLimit(size));
+                    dispatch(setPageOne());
+                  }}
+                  showQuickJumper
+                  showTotal={(total) => `Total ${total} items`}
+                />
+                {/* <ProductsPaginationComponent
                   page={page}
                   limit={limit}
                   totalCount={totalCount}
@@ -221,7 +239,7 @@ const Products = () => {
                     dispatch(setLimit(newLimit));
                     handleSetPageOne();
                   }}
-                />
+                /> */}
               </div>
             </>
           ) : (

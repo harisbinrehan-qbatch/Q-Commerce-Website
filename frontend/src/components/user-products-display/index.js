@@ -16,6 +16,9 @@ const UserProductsDisplay = ({
 }) => {
   const dispatch = useDispatch();
 
+  const { theme } = useSelector((state) => state.authentication);
+  document.body.className = theme;
+
   const handlePreviousImage = () => {
     if (currentImageIndex > 0) {
       setCurrentImageIndex((prevIndex) => prevIndex - 1);
@@ -62,7 +65,7 @@ const UserProductsDisplay = ({
   return (
     <div>
       <div className="m-4 ms-3 p-4 user-products-display-main-div">
-        <h4 className="ps-3 heading">Product Information:</h4>
+        <h4 className="d-flex heading mb-3">Product Information:</h4>
         <div className="d-flex">
           <AutoImageChange
             currentImageIndex={currentImageIndex}
@@ -101,7 +104,7 @@ const UserProductsDisplay = ({
           </div>
         </div>
         {isUser ? (
-          <div className="d-flex mt-4 ms-5 ps-4 justify-content-around">
+          <div className="d-flex mt-4 ms-5 justify-content-around">
             <div className="d-flex">
               <CustomBtn
                 className="py-1"

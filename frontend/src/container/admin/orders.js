@@ -25,6 +25,9 @@ import OrdersPaginationComponent from '../../components/orders-paginantion';
 const Orders = () => {
   const dispatch = useDispatch();
 
+  const { theme } = useSelector((state) => state.authentication);
+  document.body.className = theme;
+
   const {
     page, limit, totalCount, orders, ordersError, adminOrderStats
   } = useSelector(

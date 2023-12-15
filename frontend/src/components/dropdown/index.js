@@ -1,4 +1,4 @@
-import Button from 'react-bootstrap/Button';
+import { Button } from 'react-bootstrap';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useState } from 'react';

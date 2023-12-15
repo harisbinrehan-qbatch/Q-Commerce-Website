@@ -109,6 +109,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     signUpError: false,
+    theme: 'default',
     signUpMessage: null,
     loginMessage: null,
     loginError: true,
@@ -133,6 +134,9 @@ const authSlice = createSlice({
       state.isAdmin = false;
       state.isUser = false;
       message.success('Logout Successful', 2);
+    },
+    setTheme: (state, action) => {
+      state.theme = action.payload;
     }
   },
 
@@ -261,5 +265,10 @@ const authSlice = createSlice({
   }
 });
 
-export const { logout, setLoadingTrue, setLoadingFalse } = authSlice.actions;
+export const {
+  logout,
+  setTheme,
+  setLoadingTrue,
+  setLoadingFalse
+} = authSlice.actions;
 export default authSlice;

@@ -35,6 +35,9 @@ function CustomNavbar() {
 
   const [markAsRead, setMarkAsRead] = useState(false);
 
+  const { theme } = useSelector((state) => state.authentication);
+  document.body.className = theme;
+
   const { isAdmin, isUser, user } = useSelector(
     (state) => state.authentication
   );

@@ -23,7 +23,7 @@ import {
 
 import './style.css';
 
-function UserCart() {
+const UserCart = () => {
   const {
     cartProducts,
     userCart,
@@ -41,6 +41,9 @@ function UserCart() {
   const [addressShow, setAddressShow] = useState(false);
 
   const [changeAddressShow, setChangeAddressShow] = useState(false);
+
+  const { theme } = useSelector((state) => state.authentication);
+  document.body.className = theme;
 
   const dispatch = useDispatch();
 
@@ -176,7 +179,7 @@ function UserCart() {
               <CartItem key={index} cartItem={cartItem} />
             ))
           ) : orderSuccess ? (
-            <h2 className="d-flex justify-content-end pt-5">
+            <h2 className="d-flex justify-content-end pt-5 heading">
               Your order has been successfully placed 🙌
             </h2>
           ) : (
@@ -214,6 +217,6 @@ function UserCart() {
       ) : null}
     </div>
   );
-}
+};
 
 export default UserCart;

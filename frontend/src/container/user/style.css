@@ -1,10 +1,8 @@
-.heading {
-  color: rgba(0, 123, 255, 1);
-}
+
 .arrow-size {
   min-width: 40px;
 }
-.select-all-main-div {
+body.light .select-all-main-div {
   min-height: 70px;
   display: flex;
   align-items: center;
@@ -13,6 +11,20 @@
   color: white;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   background-color: rgb(156, 154, 154);
+  border: 1px solid #d0d0d0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+body.dark .select-all-main-div {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 930px !important;
+  color: black;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: white;
   border: 1px solid #d0d0d0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
@@ -36,5 +48,8 @@
   width: 100%;
 }
 .user-table-body {
-      height: calc(100vh - 2.4vh);
+  height: calc(100vh - 2.4vh);
+}
+.user-orders-main-div{
+  background-color: white;
 }

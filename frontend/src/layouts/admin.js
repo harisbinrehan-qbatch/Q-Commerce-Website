@@ -32,7 +32,12 @@ const AdminLayout = ({ children, setIsLoggedIn }) => {
       )}
       {(authLoading || productsLoading) && (
         <div className="loading-overlay">
-          <ReactLoading type="bars" color="#38b6f1" height={100} width={100} />
+          <ReactLoading
+            type="spokes"
+            color="green"
+            height={100}
+            width={100}
+          />
         </div>
       )}
     </div>

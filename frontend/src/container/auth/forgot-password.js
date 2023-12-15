@@ -49,43 +49,45 @@ const ForgotPassword = ({ header }) => {
   };
 
   return (
-    <div className="login-rectangle">
-      <h2 className="pb-3 header">{header}</h2>
-      <div className="border">
-        <div className="login-fields">
-          <CustomForm
-            placeholder="Please enter your email"
-            label="Enter Email"
-            className="pt-2"
-            type="email"
-            value={email}
-            hint={(
-              <span className={isEmailValid ? 'success-hint' : ''}>
-                {emailSuggestions.join(' ')}
-              </span>
-            )}
-            onChange={(e) => {
-              const newEmail = e.target.value;
-              setEmail(newEmail);
-              validateEmail(newEmail);
-            }}
-          />
-        </div>
-        <div className="login-fields">
-          <CustomBtn
-            btnText={isSendingEmail ? 'Sending Email' : 'Forgot Password'}
-            size="default"
-            className="w-100"
-            disabled={!isEmailValid || isSendingEmail}
-            onClick={handleForgotPassword}
-          />
-        </div>
-        <div className="login-fields text-center login-links">
-          <CustomLink
-            text="No, I remember my password! "
-            textLinkable="Login"
-            link="/auth/login"
-          />
+    <div className="login-container">
+      <div className="login-rectangle">
+        <h2 className="pb-3 header">{header}</h2>
+        <div className="border">
+          <div className="login-fields">
+            <CustomForm
+              placeholder="Please enter your email"
+              label="Enter Email"
+              className="pt-2"
+              type="email"
+              value={email}
+              hint={(
+                <span className={isEmailValid ? 'success-hint' : ''}>
+                  {emailSuggestions.join(' ')}
+                </span>
+              )}
+              onChange={(e) => {
+                const newEmail = e.target.value;
+                setEmail(newEmail);
+                validateEmail(newEmail);
+              }}
+            />
+          </div>
+          <div className="login-fields">
+            <CustomBtn
+              btnText={isSendingEmail ? 'Sending Email' : 'Forgot Password'}
+              size="default"
+              className="w-100"
+              disabled={!isEmailValid || isSendingEmail}
+              onClick={handleForgotPassword}
+            />
+          </div>
+          <div className="login-fields text-center login-links">
+            <CustomLink
+              text="No, I remember my password! "
+              textLinkable="Login"
+              link="/auth/login"
+            />
+          </div>
         </div>
       </div>
     </div>

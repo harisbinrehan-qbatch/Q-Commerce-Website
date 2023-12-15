@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomBtn from '../button';
 import { updateDefaultAddress } from '../../redux/slices/cart';
 
@@ -12,12 +12,15 @@ const AddressBox = ({
 }) => {
   const dispatch = useDispatch();
 
+  const { theme } = useSelector((state) => state.authentication);
+  document.body.className = theme;
+
   const handleSetDefaultAddress = () => {
     dispatch(updateDefaultAddress({ addressId }));
   };
 
   return (
-    <div className="d-flex address-box">
+    <div className="d-flex">
       <div className="container p-2">
         <div className="d-flex gap-2">
           <strong>Deliver to:</strong>

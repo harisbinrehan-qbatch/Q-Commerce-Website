@@ -1,8 +1,18 @@
-.cart-item-main-div {
+body.light .cart-item-main-div {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   background-color: rgba(255, 255, 255, 1);
   min-height: 150px;
   border-radius: 4px;
+  color: black;
+  border: 1px;
+}
+
+body.dark .cart-item-main-div {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+background-color: rgb(156, 154, 154);
+  min-height: 150px;
+  border-radius: 4px;
+  color: white;
   border: 1px;
 }
 

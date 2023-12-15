@@ -21,6 +21,9 @@ const AddPayment = () => {
   const [editPaymentCanvasShow, setEditPaymentCanvasShow] = useState(false);
   const [addPaymentCanvasShow, setAddPaymentCanvasShow] = useState(false);
 
+  const { theme } = useSelector((state) => state.authentication);
+  document.body.className = theme;
+
   const user = JSON.parse(localStorage.getItem('user'));
 
   const {
@@ -28,6 +31,7 @@ const AddPayment = () => {
     paymentDetails,
     userCart,
     orderSummary,
+    addresses,
     paymentDetailsStatus
   } = useSelector((state) => state.cart);
 
@@ -73,7 +77,7 @@ const AddPayment = () => {
 
   return (
     <div className="container add-payment-main-div">
-      <h2 className="p-2 heading">Add Payment</h2>
+      <h2 className="p-2 summary-heading">Add Payment</h2>
       <div className="d-flex justify-content-between">
         <div onClick={handleAddPaymentDetails}>
           <CustomBtn className="m-2" variant="light" btnText="+ Add New" />
@@ -137,7 +141,7 @@ const AddPayment = () => {
         />
       )}
 
-      {!isEmpty(paymentDetails) && userCart && !isEmpty(userCart.products) ? (
+      {!isEmpty(paymentDetails) && !isEmpty(addresses) && userCart && !isEmpty(userCart.products) ? (
         <CustomBtn
           className="ms-2"
           btnText="Place Order"

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { isEmpty } from 'lodash';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { loginUser, signinWithGoogle } from '../../redux/slices/authentication';
 import CustomLink from '../../components/link';
@@ -20,6 +20,9 @@ const Login = ({ header }) => {
   const [password, setPassword] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [emailSuggestions, setEmailSuggestions] = useState([]);
+
+  const { theme } = useSelector((state) => state.authentication);
+  document.body.className = theme;
 
   const handleLogin = async () => {
     if (isEmailValid && email && password) {

@@ -91,7 +91,7 @@ const NewPassword = ({ header }) => {
       <Result status="error" subTitle="Sorry, Link has been expired." />
     </div>
   ) : (
-    <div>
+    <div className="login-container">
       <div className="login-rectangle">
         <h2 className="pb-3 header">{header}</h2>
         <div className="border">

@@ -121,104 +121,106 @@ const Signup = ({ header }) => {
   };
 
   return (
-    <div className="login-rectangle">
-      <h2 className="pb-3 header">{header}</h2>
-      <div className="border">
-        <div className="login-fields">
-          <CustomForm
-            placeholder="Full Name"
-            label="Full Name"
-            className="pt-2"
-            type="text"
-            value={username}
-            hint={(
-              <span className={isUsernameValid ? 'success-hint' : ''}>
-                {usernameSuggestions.join(' ')}
-              </span>
-            )}
-            onChange={(e) => {
-              const newUsername = e.target.value;
-              setUsername(newUsername);
-              validateUsername(newUsername);
-            }}
-          />
-        </div>
-        <div className="login-fields">
-          <CustomForm
-            placeholder="Please enter your email"
-            label="Enter Email"
-            type="email"
-            value={email}
-            hint={(
-              <span className={isEmailValid ? 'success-hint' : ''}>
-                {emailSuggestions.join(' ')}
-              </span>
-            )}
-            onChange={(e) => {
-              const newEmail = e.target.value;
-              setEmail(newEmail);
-              validateEmail(newEmail);
-            }}
-          />
-        </div>
-        <div className="login-fields">
-          <CustomForm
-            placeholder="Password"
-            label="Enter your password"
-            type="password"
-            value={password}
-            hint={(
-              <span className={isPasswordValid ? 'success-hint' : ''}>
-                {passwordSuggestions.join(' ')}
-              </span>
-            )}
-            onChange={(e) => {
-              const newPassword = e.target.value;
-              setPassword(newPassword);
-              validatePassword(newPassword);
-            }}
-          />
-        </div>
-        <div className="login-fields">
-          <CustomForm
-            placeholder="03000000000"
-            label="Mobile"
-            type="text"
-            value={mobile}
-            hint={(
-              <span className={isMobileValid ? 'success-hint' : ''}>
-                {mobileSuggestions.join(' ')}
-              </span>
-            )}
-            onChange={(e) => {
-              const newMobile = e.target.value;
-              setMobile(newMobile);
-              validateMobile(newMobile);
-            }}
-          />
-        </div>
-        <div className="login-fields">
-          <CustomBtn
-            btnText={isCreatingUser ? 'Creating User' : 'Signup'}
-            size="default"
-            className="w-100"
-            disabled={
-              !isUsernameValid
-              || !isPasswordValid
-              || !isEmailValid
-              || !isMobileValid
-              || isCreatingUser
-            }
-            onClick={handleSignUp}
-          />
-        </div>
-        <div className="login-fields text-center">
-          <div className="login-links">
-            <CustomLink
-              text="Already have an account! "
-              textLinkable="Login"
-              link="/auth/login"
+    <div className="login-container">
+      <div className="login-rectangle">
+        <h2 className="pb-3 header">{header}</h2>
+        <div className="border">
+          <div className="login-fields">
+            <CustomForm
+              placeholder="Full Name"
+              label="Full Name"
+              className="pt-2"
+              type="text"
+              value={username}
+              hint={(
+                <span className={isUsernameValid ? 'success-hint' : ''}>
+                  {usernameSuggestions.join(' ')}
+                </span>
+              )}
+              onChange={(e) => {
+                const newUsername = e.target.value;
+                setUsername(newUsername);
+                validateUsername(newUsername);
+              }}
             />
+          </div>
+          <div className="login-fields">
+            <CustomForm
+              placeholder="Please enter your email"
+              label="Enter Email"
+              type="email"
+              value={email}
+              hint={(
+                <span className={isEmailValid ? 'success-hint' : ''}>
+                  {emailSuggestions.join(' ')}
+                </span>
+              )}
+              onChange={(e) => {
+                const newEmail = e.target.value;
+                setEmail(newEmail);
+                validateEmail(newEmail);
+              }}
+            />
+          </div>
+          <div className="login-fields">
+            <CustomForm
+              placeholder="Password"
+              label="Enter your password"
+              type="password"
+              value={password}
+              hint={(
+                <span className={isPasswordValid ? 'success-hint' : ''}>
+                  {passwordSuggestions.join(' ')}
+                </span>
+              )}
+              onChange={(e) => {
+                const newPassword = e.target.value;
+                setPassword(newPassword);
+                validatePassword(newPassword);
+              }}
+            />
+          </div>
+          <div className="login-fields">
+            <CustomForm
+              placeholder="03000000000"
+              label="Mobile"
+              type="text"
+              value={mobile}
+              hint={(
+                <span className={isMobileValid ? 'success-hint' : ''}>
+                  {mobileSuggestions.join(' ')}
+                </span>
+              )}
+              onChange={(e) => {
+                const newMobile = e.target.value;
+                setMobile(newMobile);
+                validateMobile(newMobile);
+              }}
+            />
+          </div>
+          <div className="login-fields">
+            <CustomBtn
+              btnText={isCreatingUser ? 'Creating User' : 'Signup'}
+              size="default"
+              className="w-100"
+              disabled={
+                !isUsernameValid
+                || !isPasswordValid
+                || !isEmailValid
+                || !isMobileValid
+                || isCreatingUser
+              }
+              onClick={handleSignUp}
+            />
+          </div>
+          <div className="login-fields text-center">
+            <div className="login-links">
+              <CustomLink
+                text="Already have an account! "
+                textLinkable="Login"
+                link="/auth/login"
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { debounce, isEmpty } from 'lodash';
 
@@ -11,6 +11,9 @@ import './style.css';
 const UserModuleHeader = () => {
   const dispatch = useDispatch();
   const [filterObject, setFilterObject] = useState({});
+
+  const { theme } = useSelector((state) => state.authentication);
+  document.body.className = theme;
 
   const dropdownArray = [
     {
