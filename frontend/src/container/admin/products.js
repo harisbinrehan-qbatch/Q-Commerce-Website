@@ -127,7 +127,7 @@ const Products = () => {
         />
       ) : null}
 
-      <div className="products-table-body mt-4 w-100 h-100 p-4">
+      <div className="products-table-body w-100 h-100 p-4">
         <div className="main-div d-flex">
           <h2 className="heading">Products</h2>
           <div className="d-flex header-buttons">
@@ -146,7 +146,7 @@ const Products = () => {
           </div>
         </div>
         <div className="header-buttons">
-          <b className="fs-5 mt-2">Search :</b>
+          <b className="fs-5 mt-2 heading">Search :</b>
           <CustomForm
             style={{ marginTop: '-20px' }}
             placeholder="Search by name"
@@ -217,6 +217,7 @@ const Products = () => {
 
               <div className="d-flex justify-content-center mt-4">
                 <Pagination
+                  className="d-flex mb-5"
                   current={page}
                   total={totalCount}
                   pageSize={limit}

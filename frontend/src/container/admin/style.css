@@ -1,23 +1,44 @@
-.dashboard-main-div {
-  background-color: rgba(233, 236, 239, 1);
+body.light .dashboard-main-div {
+    background-color: rgb(200, 200, 200)!important;
+  color: black;
 }
+
+body.dark .dashboard-main-div {
+  background-color: rgb(52, 53, 65, 01) !important;
+  color: white;
+}
+
 .line-chart-text {
   color: red;
   padding-left: 25px;
 }
-.dashboard-cart-main-div {
-  background-color: rgba(255, 255, 255, 1);
+body.light .dashboard-cart-main-div {
   margin: 2px 2px 2px 2px;
   width: 320px;
   height: 144px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgb(223, 223, 223);
 
+  color: black;
+  border-radius: 4px;
+  border: 1px;
+  
+}
+
+body.dark .dashboard-cart-main-div {
+  margin: 2px 2px 2px 2px;
+  width: 320px;
+  height: 144px;
+      background: linear-gradient(to right, rgb(255, 255, 255), rgb(175, 175, 175));
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  color: black;
   border-radius: 4px;
   border: 1px;
 }
 .dashboard-line-chart-main-div {
   background-color: rgba(255, 255, 255, 1);
+   border-radius: 4px;
+  border: 1px;
 }
 .dashboard-line-chart-text {
   font-family: Inter;
@@ -28,8 +49,14 @@
   text-align: left;
 }
 .dashboard-orders-graph-main-div {
-  background-color: rgba(255, 255, 255, 1);
+      background: linear-gradient(to left, rgb(255, 255, 255), rgb(175, 175, 175));
   margin-left: 21px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: rgb(223, 223, 223);
+
+  color: black;
+  border-radius: 4px;
+  border: 1px;
 }
 .dashboard-orders-graph-text {
   font-family: Inter;
@@ -40,15 +67,21 @@
   text-align: left;
 }
 
-.orders-main-div {
+body.light .orders-main-div {
   background-color: rgba(233, 236, 239, 1);
+}
+
+body.dark .orders-main-div {
+  background-color: rgba(233, 236, 239, 1);
+  background: linear-gradient(to left, rgb(52, 53, 65, 01), rgb(138, 138, 138));
 }
 .orders-rectangle-main-div {
   width: 320px;
   height: 80px;
-
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   background-color: rgb(255, 255, 255);
+    background: linear-gradient(to left, rgb(255, 255, 255), rgb(175, 175, 175));
+
   border: 1px solid #d0d0d0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.2);
   padding: 3px;
@@ -118,12 +151,12 @@
   font-size: 12.8px;
   font-style: normal;
   font-weight: 400;
-  line-height: 19.2px; /* 150% */
+  line-height: 19.2px;
   max-width: 50px;
 }
 body.light .table-body {
   color: var(--components-forms-input-text, #495057);
-  background-color: rgb(185, 185, 185);
+      background-color: rgb(200, 200, 200);
   font-family: Inter;
   font-size: 12.8px;
   font-style: normal;
@@ -131,45 +164,55 @@ body.light .table-body {
   line-height: 19.2px;
   min-height: 700px;
   margin-top: 35px;
-}.products-table-body{
-  color: var(--components-forms-input-text, #495057);
-  background-color: rgba(233, 236, 239, 1);
-  font-family: Inter;
-  font-size: 12.8px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 19.2px;
-  min-height: 655px;
 }
 
 body.dark .table-body {
   color: var(--components-forms-input-text, #495057);
-  background-color: rgb(80, 79, 79);
+  background-color: rgb(52, 53, 65, 01);
+  background: linear-gradient(to left, rgb(52, 53, 65, 01), rgb(138, 138, 138));
+
   font-family: Inter;
   font-size: 12.8px;
   font-style: normal;
   font-weight: 400;
   line-height: 19.2px;
   min-height: 700px;
-  margin-top: 35px;
-}.products-table-body{
+  padding-top: 31px;
+}
+body.light .products-table-body {
   color: var(--components-forms-input-text, #495057);
-background-color: rgb(156, 154, 154);
+      background-color: rgb(200, 200, 200);
+
   font-family: Inter;
   font-size: 12.8px;
   font-style: normal;
   font-weight: 400;
   line-height: 19.2px;
-  min-height: 655px;
+  min-height: 700px;
+  margin-top: 31px;
 }
 
-.product-table-orders{
-  height: calc(100vh - 59vh);
-      overflow: auto;
+body.dark .products-table-body {
+  color: var(--components-forms-input-text, #495057);
+  background-color: rgb(52, 53, 65, 01);
+background: linear-gradient(to left, rgb(52, 53, 65, 01), rgb(138, 138, 138));
+
+  font-family: Inter;
+  font-size: 12.8px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19.2px;
+  min-height: 700px;
+  margin-top: 31px;
 }
-.product-table-wrapper{
-    height: calc(100vh - 43vh);
-    overflow: auto;
+
+.product-table-orders {
+  height: calc(100vh - 53vh);
+  overflow: auto;
+}
+.product-table-wrapper {
+  height: calc(100vh - 43vh);
+  overflow: auto;
 }
 .products-header {
   color: var(--global-01-primary, #007bff);
@@ -194,4 +237,9 @@ background-color: rgb(156, 154, 154);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.2);
   padding: 3px;
   border-radius: 5px;
+}
+.admin-order-details-main-div{
+    background: linear-gradient(to left, rgb(52, 53, 65, 01), rgb(138, 138, 138));
+
+
 }

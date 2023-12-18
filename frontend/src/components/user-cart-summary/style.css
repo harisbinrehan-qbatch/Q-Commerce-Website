@@ -12,6 +12,8 @@ body.light .card-summary-main-div {
 body.dark .card-summary-main-div {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   background-color: white;
+  background: linear-gradient(to left, rgb(52, 53, 65, 01), rgb(138, 138, 138));
+
   min-height: 300px;
   border: 1px solid #d0d0d0;
   color: black;

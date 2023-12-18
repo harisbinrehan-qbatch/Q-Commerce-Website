@@ -8,6 +8,7 @@ body.light .user-products-display-main-div {
   height: 530px;
   border-radius: 4px;
   border: 1px;
+  color:black;
   gap: 16px;
   z-index: 0;
 }
@@ -16,6 +17,7 @@ body.dark .user-products-display-main-div {
   position: sticky;
   top: 155px;
   right: 0px;
+  color: white;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 background-color: rgb(156, 154, 154);
 

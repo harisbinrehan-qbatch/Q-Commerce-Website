@@ -16,8 +16,8 @@ const UserProductsDisplay = ({
 }) => {
   const dispatch = useDispatch();
 
-  const { theme } = useSelector((state) => state.authentication);
-  document.body.className = theme;
+  // const { theme } = useSelector((state) => state.authentication);
+  // document.body.className = theme;
 
   const handlePreviousImage = () => {
     if (currentImageIndex > 0) {

@@ -11,7 +11,7 @@ const TopSelling = () => {
     <div>
       <div className="table-body w-100 h-100 p-4">
         <div className="main-div d-flex">
-          <h2 className="pt-3 pb-2">Top Selling Products</h2>
+          <h2 className="pt-3 pb-2 heading">Top Selling Products</h2>
         </div>
 
         <div>

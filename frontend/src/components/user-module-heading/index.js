@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { debounce, isEmpty } from 'lodash';
 
@@ -12,8 +12,8 @@ const UserModuleHeader = () => {
   const dispatch = useDispatch();
   const [filterObject, setFilterObject] = useState({});
 
-  const { theme } = useSelector((state) => state.authentication);
-  document.body.className = theme;
+  // const { theme } = useSelector((state) => state.authentication);
+  // document.body.className = theme;
 
   const dropdownArray = [
     {
@@ -101,7 +101,7 @@ const UserModuleHeader = () => {
     >
       <h4 className="header-heading pt-3 ps-4">Heading</h4>
       <div className="d-flex gap-4 pt-3 pb-3">
-        <h5 className="pt-2 header-text">Filters:</h5>
+        <h5 className="pt-2 heading">Filters:</h5>
         {dropdownArray.map((singleFilter, index) => (
           <div>
             <CustomDropdown
@@ -112,7 +112,7 @@ const UserModuleHeader = () => {
             />
           </div>
         ))}
-        <h5 className="pt-2 header-text">Search:</h5>
+        <h5 className="pt-2 heading">Search:</h5>
         <CustomForm
           style={{ marginTop: '-22px' }}
           placeholder="Search by name"

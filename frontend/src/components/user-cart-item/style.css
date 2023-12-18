@@ -9,7 +9,7 @@ body.light .cart-item-main-div {
 
 body.dark .cart-item-main-div {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-background-color: rgb(156, 154, 154);
+background-color: rgb(138, 138, 138);
   min-height: 150px;
   border-radius: 4px;
   color: white;

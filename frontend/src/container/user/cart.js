@@ -42,8 +42,8 @@ const UserCart = () => {
 
   const [changeAddressShow, setChangeAddressShow] = useState(false);
 
-  const { theme } = useSelector((state) => state.authentication);
-  document.body.className = theme;
+  // const { theme } = useSelector((state) => state.authentication);
+  // document.body.className = theme;
 
   const dispatch = useDispatch();
 

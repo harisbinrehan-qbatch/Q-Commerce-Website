@@ -12,8 +12,8 @@ function UserCartSummary() {
     (state) => state.cart
   );
 
-  const { theme } = useSelector((state) => state.authentication);
-  document.body.className = theme;
+  // const { theme } = useSelector((state) => state.authentication);
+  // document.body.className = theme;
 
   const dispatch = useDispatch();
 

@@ -27,7 +27,7 @@ const AdminLayout = ({ children, setIsLoggedIn }) => {
         </>
       ) : (
         <div className="d-flex">
-          <div className="w-100 p-4">{children}</div>
+          <div className="w-100">{children}</div>
         </div>
       )}
       {(authLoading || productsLoading) && (

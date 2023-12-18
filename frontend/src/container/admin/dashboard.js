@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getNotifications, getOrderStats, startAgendaJobs } from '../../redux/slices/order';
+import {
+  getNotifications,
+  getOrderStats,
+  startAgendaJobs
+} from '../../redux/slices/order';
 import DashboardCart from '../../components/dashboard-cart/admin-dashboard-cart';
 
 import DashboardOrdersGraph from '../../components/dashboard-orders-graph/admin-dashboard-orders-graph';
@@ -25,7 +29,7 @@ const Dashboard = () => {
   return (
     <div className="table-body dashboard-main-div">
       <h2 className="heading d-flex p-4">Dashboard</h2>
-      <div className="d-flex justify-content-around gap-4 ms-4 me-3">
+      <div className="d-flex justify-content-between gap-4 ms-4 me-3">
         <DashboardCart
           cartText="Today"
           totalOrders={
@@ -86,24 +90,14 @@ const Dashboard = () => {
       <div>
         <div className="d-flex pt-2 gap-5">
           <div className="ms-1 pt-3">
-            <b
-              className="d-flex justify-content-center mb-3"
-              style={{ color: 'grey' }}
-            >
-              Orders Overview
-            </b>
+            <b className="heading d-flex p-4">Orders Overview</b>
             <DashboardOrdersGraph
               paidOrders={orderStats?.totalPaidOrders || 0}
               unpaidOrders={orderStats?.totalUnpaidOrders || 0}
             />
           </div>
           <div className="pt-3">
-            <b
-              className="d-flex justify-content-center mb-3"
-              style={{ color: 'grey' }}
-            >
-              Sales and Orders Report
-            </b>
+            <b className="heading d-flex pt-4 pb-4 ps-2">Sales and Orders Report</b>
             <DashboardLineChart oneYearStats={orderStats?.oneYearStats || {}} />
           </div>
         </div>

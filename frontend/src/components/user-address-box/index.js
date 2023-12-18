@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import CustomBtn from '../button';
 import { updateDefaultAddress } from '../../redux/slices/cart';
 
@@ -12,8 +12,8 @@ const AddressBox = ({
 }) => {
   const dispatch = useDispatch();
 
-  const { theme } = useSelector((state) => state.authentication);
-  document.body.className = theme;
+  // const { theme } = useSelector((state) => state.authentication);
+  // document.body.className = theme;
 
   const handleSetDefaultAddress = () => {
     dispatch(updateDefaultAddress({ addressId }));

@@ -109,7 +109,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     signUpError: false,
-    theme: 'default',
+    theme: 'dark',
     signUpMessage: null,
     loginMessage: null,
     loginError: true,

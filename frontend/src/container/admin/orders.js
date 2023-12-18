@@ -25,8 +25,8 @@ import OrdersPaginationComponent from '../../components/orders-paginantion';
 const Orders = () => {
   const dispatch = useDispatch();
 
-  const { theme } = useSelector((state) => state.authentication);
-  document.body.className = theme;
+  // const { theme } = useSelector((state) => state.authentication);
+  // document.body.className = theme;
 
   const {
     page, limit, totalCount, orders, ordersError, adminOrderStats
@@ -62,9 +62,9 @@ const Orders = () => {
   }, 500);
 
   return (
-    <div className="table-body orders-main-div">
+    <div className="table-body user-table-body">
       <h2 className="heading d-flex p-4">Orders</h2>
-      <div className="d-flex justify-content-around ps-3 pe-3">
+      <div className="d-flex justify-content-between ps-3 pe-3">
         <OrdersRectangle
           rectangleText="Total orders: "
           value={adminOrderStats.totalOrders || 0}
@@ -86,7 +86,7 @@ const Orders = () => {
       <div>
         <div className="w-100 h-100 p-4">
           <div className="header-buttons">
-            <b className="fs-5 mt-2">Search :</b>
+            <b className="fs-5 mt-2 heading">Search :</b>
             <CustomForm
               style={{ marginTop: '-20px' }}
               placeholder="Search by id"

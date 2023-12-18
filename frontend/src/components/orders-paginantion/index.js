@@ -63,7 +63,7 @@ const OrdersPaginationComponent = ({
         </Pagination.Next>
       </Pagination>
       <div className="d-flex justify-content-center">
-        <span>Items per page:</span>
+        <span className="heading">Items per page:</span>
         <select
           onChange={(e) => onLimitChange(parseInt(e.target.value))}
           value={limit.toString()}

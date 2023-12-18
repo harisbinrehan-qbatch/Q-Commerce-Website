@@ -39,7 +39,7 @@ body.dark .navbar-sticky-section {
   position: sticky;
   padding-top: 8px;
   top: 0px;
-background-color: rgb(196, 196, 196);
+background-color: rgb(60, 60, 60, 1);
 }
 
 .clickable {

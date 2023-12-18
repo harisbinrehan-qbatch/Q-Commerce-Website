@@ -13,7 +13,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import { useEffect, useState } from 'react';
 import userImage from '../../assets/images/userImage.jpeg';
-import { logout } from '../../redux/slices/authentication';
+import { logout, setTheme } from '../../redux/slices/authentication';
 import {
   moveToCartFromNavbar,
   setCartSummaryNull,
@@ -67,6 +67,10 @@ function CustomNavbar() {
     setMarkAsRead(true);
   };
 
+  const handleSetTheme = (selectedTheme) => {
+    dispatch(setTheme(selectedTheme));
+  };
+
   useEffect(() => {
     dispatch(getNotifications());
     setMarkAsRead(false);
@@ -79,7 +83,7 @@ function CustomNavbar() {
     >
       <Navbar expand="lg">
         <Container>
-          <h2 className="ecom clickable" onClick={handleNavigateHome}>
+          <h2 className="ecom clickable heading" onClick={handleNavigateHome}>
             Q-Commerce
           </h2>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -212,6 +216,12 @@ function CustomNavbar() {
               >
                 <NavDropdown.Item onClick={handleLogout}>
                   Logout
+                </NavDropdown.Item>
+                <NavDropdown.Item className="py-3" onClick={() => handleSetTheme('light')}>
+                  Light Theme
+                </NavDropdown.Item>
+                <NavDropdown.Item onClick={() => handleSetTheme('dark')}>
+                  Dark Theme
                 </NavDropdown.Item>
               </NavDropdown>
             ) : null}

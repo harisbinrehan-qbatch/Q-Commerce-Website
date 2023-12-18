@@ -4,7 +4,7 @@ body.light .cart-main-div{
 }
 
 body.dark .cart-main-div{
- background-color: rgb(80, 79, 79);
+background-color: rgb(52, 53, 65, 01);
    min-height: calc(100vh - 2.4vh);
 
 }
@@ -14,7 +14,7 @@ body.light .user-main-page {
 }
 
 body.dark .user-main-page {
-  background-color: rgb(80, 79, 79);
+  background-color: rgb(52, 53, 65, 01);
 }
 
 body.light .heading {

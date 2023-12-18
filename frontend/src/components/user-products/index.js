@@ -23,8 +23,8 @@ const UserProducts = () => {
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const { theme } = useSelector((state) => state.authentication);
-  document.body.className = theme;
+  // const { theme } = useSelector((state) => state.authentication);
+  // document.body.className = theme;
 
   const dispatch = useDispatch();
 

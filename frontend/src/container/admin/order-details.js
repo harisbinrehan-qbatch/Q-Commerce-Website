@@ -40,16 +40,16 @@ function OrderDetails() {
   }, []);
 
   return (
-    <div>
+    <div className="p-5 table-body">
       {orderData ? (
         <div>
-          <div className="d-flex">
+          <div className="d-flex ">
             <Link to="/admin/orders">
               <img src={arrowLeft} alt="Cloud" className="img-large" />
             </Link>
-            <h2 className="d-flex ps-3 pt-1">Order Details</h2>
+            <h2 className="d-flex ps-3 pt-2 heading">Order Details</h2>
           </div>
-          <div className="container d-flex mt-5 justify-content-between">
+          <div className="container heading d-flex mt-5 justify-content-between">
             <p>
               <strong style={{ color: 'green' }}>Date:</strong>
               {' '}

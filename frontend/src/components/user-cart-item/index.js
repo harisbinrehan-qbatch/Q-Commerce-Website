@@ -32,8 +32,8 @@ const CartItem = ({ cartItem }) => {
   const { data } = useSelector((state) => state.products);
 
   const dispatch = useDispatch();
-  const { theme } = useSelector((state) => state.authentication);
-  document.body.className = theme;
+  // const { theme } = useSelector((state) => state.authentication);
+  // document.body.className = theme;
 
   const handleIncrementQuantity = () => {
     const matchingProduct = data.find(

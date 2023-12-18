@@ -7,7 +7,7 @@ body.light .user-header-main-div{
 
 body.dark .user-header-main-div{
     min-width: 100%;
-  background-color: rgb(118, 116, 116);
+  background-color: rgb(52, 53, 65, 01);
     z-index: 99 ;
     top: 0;
 }

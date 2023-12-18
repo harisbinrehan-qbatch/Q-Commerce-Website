@@ -58,7 +58,7 @@ const UserOrders = () => {
     <Empty description="No orders found" style={{ marginTop: '250px' }} />
   ) : (
     <div className="table-body user-table-body">
-      <div className="d-flex p-4">
+      <div className="d-flex pt-5 p-4">
         <Link to="/">
           <img src={arrowLeft} alt="Cloud" className="img-large" />
         </Link>

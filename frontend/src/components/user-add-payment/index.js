@@ -21,8 +21,8 @@ const AddPayment = () => {
   const [editPaymentCanvasShow, setEditPaymentCanvasShow] = useState(false);
   const [addPaymentCanvasShow, setAddPaymentCanvasShow] = useState(false);
 
-  const { theme } = useSelector((state) => state.authentication);
-  document.body.className = theme;
+  // const { theme } = useSelector((state) => state.authentication);
+  // document.body.className = theme;
 
   const user = JSON.parse(localStorage.getItem('user'));
 
