@@ -18,6 +18,16 @@ const GetUserOrders = async (req, res) => {
 
     const totalCount = await Order.countDocuments({ email });
 
+    const modifiedOrders = orders.map((order) => ({
+      ...order.toObject(),
+      products: order.products.map((product) => ({
+        ...product,
+        images: product.images[0]
+      }))
+    }));
+
+    console.log('+++', modifiedOrders[0]);
+
     return res.status(200).json({
       orders,
       totalCount
