@@ -13,7 +13,7 @@ body.light .product-div {
 
 body.dark .product-div {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-background-color: rgb(156, 154, 154);
+  background-color: rgb(156, 154, 154);
   width: 289px;
   color: white;
   min-height: 418px;
@@ -39,4 +39,19 @@ background-color: rgb(156, 154, 154);
   justify-content: center;
   align-items: center;
   z-index: 999;
+}
+
+.blurred-img {
+  background-image: url('../../assets/images/blur-image.avif');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.blurred-img::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: pulse 2.5s infinite;
+  background-color: var(--text-color);
 }

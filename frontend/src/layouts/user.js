@@ -29,7 +29,7 @@ const UserLayout = ({ children, setIsLoggedIn }) => {
       />
       {(authLoading || productsLoading) && (
         <div className="loading-overlay">
-          <ReactLoading type="spokes" color="green" height={100} width={100} />
+          <ReactLoading type="bars" color="green" height={100} width={100} />
         </div>
       )}
       <div className="cart-main-div">{children}</div>

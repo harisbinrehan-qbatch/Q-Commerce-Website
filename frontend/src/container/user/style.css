@@ -1,4 +1,3 @@
-
 .arrow-size {
   min-width: 40px;
 }
@@ -24,8 +23,12 @@ body.dark .select-all-main-div {
   max-width: 930px !important;
   color: black;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  background-color: white;
-    background: linear-gradient(to right, rgb(52, 53, 65, 01), rgb(138, 138, 138));
+
+  background: linear-gradient(
+    to right,
+    rgb(52, 53, 65, 01),
+    rgb(138, 138, 138)
+  );
 
   border: 1px solid #d0d0d0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.2);
@@ -52,6 +55,6 @@ body.dark .select-all-main-div {
 .user-table-body {
   height: calc(100vh - 2.4vh);
 }
-.user-orders-main-div{
+.user-orders-main-div {
   background-color: white;
 }

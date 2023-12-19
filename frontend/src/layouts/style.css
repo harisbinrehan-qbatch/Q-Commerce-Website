@@ -1,12 +1,10 @@
-body.light .cart-main-div{
+body.light .cart-main-div {
   background-color: white;
-
 }
 
-body.dark .cart-main-div{
-background-color: rgb(52, 53, 65, 01);
-   min-height: calc(100vh - 2.4vh);
-
+body.dark .cart-main-div {
+  background-color: rgb(52, 53, 65, 01);
+  min-height: calc(100vh - 2.4vh);
 }
 
 body.light .user-main-page {
@@ -45,4 +43,12 @@ body.dark .heading {
 }
 .user-table-body {
   height: calc(100vh - 2.4vh);
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 }

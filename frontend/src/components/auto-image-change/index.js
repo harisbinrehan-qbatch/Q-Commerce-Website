@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { Image } from 'antd';
 import {
-  LeftCircleFilled,
-  RightCircleFilled
+// LeftCircleFilled,
+// RightCircleFilled
 } from '@ant-design/icons';
 
 import './style.css';
@@ -10,8 +10,8 @@ import './style.css';
 const AutoImageChange = ({
   images,
   onChange,
-  handleNextImage,
-  handlePreviousImage,
+  // handleNextImage,
+  // handlePreviousImage,
   product,
   currentImageIndex,
   setCurrentImageIndex
@@ -23,7 +23,7 @@ const AutoImageChange = ({
       } else {
         setCurrentImageIndex(0);
       }
-    }, 3000);
+    }, 2000);
 
     return () => clearInterval(intervalId);
   }, [currentImageIndex, images]);
@@ -34,7 +34,7 @@ const AutoImageChange = ({
 
   return (
     <div className="d-flex">
-      <div className="justify-content-center align-items-center">
+      {/* <div className="justify-content-center align-items-center">
         <LeftCircleFilled
           className={`product-display-image-button me-3 ${
             currentImageIndex === 0 || !images || !images.length
@@ -44,7 +44,7 @@ const AutoImageChange = ({
           onClick={handlePreviousImage}
           // disabled={currentImageIndex === 0 || !images || !images.length}
         />
-      </div>
+      </div> */}
       {images && images[currentImageIndex] && (
         <Image.PreviewGroup
           items={product.images.map(
@@ -61,7 +61,7 @@ const AutoImageChange = ({
         </Image.PreviewGroup>
       )}
 
-      <div className="justify-content-center align-items-center">
+      {/* <div className="justify-content-center align-items-center">
         <RightCircleFilled
           onClick={handleNextImage}
           className={`product-display-image-button ms-3 ${
@@ -75,7 +75,7 @@ const AutoImageChange = ({
             === (product?.images ? product.images.length - 1 : 0)
           }
         />
-      </div>
+      </div> */}
     </div>
   );
 };

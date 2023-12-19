@@ -1,5 +1,5 @@
 body.light .dashboard-main-div {
-    background-color: rgb(200, 200, 200)!important;
+  background-color: rgb(200, 200, 200) !important;
   color: black;
 }
 
@@ -22,14 +22,13 @@ body.light .dashboard-cart-main-div {
   color: black;
   border-radius: 4px;
   border: 1px;
-  
 }
 
 body.dark .dashboard-cart-main-div {
   margin: 2px 2px 2px 2px;
   width: 320px;
   height: 144px;
-      background: linear-gradient(to right, rgb(255, 255, 255), rgb(175, 175, 175));
+  background: linear-gradient(to right, rgb(255, 255, 255), rgb(175, 175, 175));
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   color: black;
   border-radius: 4px;
@@ -37,7 +36,7 @@ body.dark .dashboard-cart-main-div {
 }
 .dashboard-line-chart-main-div {
   background-color: rgba(255, 255, 255, 1);
-   border-radius: 4px;
+  border-radius: 4px;
   border: 1px;
 }
 .dashboard-line-chart-text {
@@ -49,7 +48,7 @@ body.dark .dashboard-cart-main-div {
   text-align: left;
 }
 .dashboard-orders-graph-main-div {
-      background: linear-gradient(to left, rgb(255, 255, 255), rgb(175, 175, 175));
+  background: linear-gradient(to left, rgb(255, 255, 255), rgb(175, 175, 175));
   margin-left: 21px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   background-color: rgb(223, 223, 223);
@@ -80,7 +79,7 @@ body.dark .orders-main-div {
   height: 80px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   background-color: rgb(255, 255, 255);
-    background: linear-gradient(to left, rgb(255, 255, 255), rgb(175, 175, 175));
+  background: linear-gradient(to left, rgb(255, 255, 255), rgb(175, 175, 175));
 
   border: 1px solid #d0d0d0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.2);
@@ -156,7 +155,7 @@ body.dark .orders-main-div {
 }
 body.light .table-body {
   color: var(--components-forms-input-text, #495057);
-      background-color: rgb(200, 200, 200);
+  background-color: rgb(200, 200, 200);
   font-family: Inter;
   font-size: 12.8px;
   font-style: normal;
@@ -181,7 +180,7 @@ body.dark .table-body {
 }
 body.light .products-table-body {
   color: var(--components-forms-input-text, #495057);
-      background-color: rgb(200, 200, 200);
+  background-color: rgb(200, 200, 200);
 
   font-family: Inter;
   font-size: 12.8px;
@@ -195,7 +194,7 @@ body.light .products-table-body {
 body.dark .products-table-body {
   color: var(--components-forms-input-text, #495057);
   background-color: rgb(52, 53, 65, 01);
-background: linear-gradient(to left, rgb(52, 53, 65, 01), rgb(138, 138, 138));
+  background: linear-gradient(to left, rgb(52, 53, 65, 01), rgb(138, 138, 138));
 
   font-family: Inter;
   font-size: 12.8px;
@@ -238,8 +237,6 @@ background: linear-gradient(to left, rgb(52, 53, 65, 01), rgb(138, 138, 138));
   padding: 3px;
   border-radius: 5px;
 }
-.admin-order-details-main-div{
-    background: linear-gradient(to left, rgb(52, 53, 65, 01), rgb(138, 138, 138));
-
-
+.admin-order-details-main-div {
+  background: linear-gradient(to left, rgb(52, 53, 65, 01), rgb(138, 138, 138));
 }

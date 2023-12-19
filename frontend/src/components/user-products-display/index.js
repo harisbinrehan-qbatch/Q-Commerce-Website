@@ -16,6 +16,10 @@ const UserProductsDisplay = ({
 }) => {
   const dispatch = useDispatch();
 
+  const { data: products } = useSelector(
+    (state) => state.products
+  );
+
   // const { theme } = useSelector((state) => state.authentication);
   // document.body.className = theme;
 
@@ -63,94 +67,99 @@ const UserProductsDisplay = ({
   }
 
   return (
-    <div>
-      <div className="m-4 ms-3 p-4 user-products-display-main-div">
-        <h4 className="d-flex heading mb-3">Product Information:</h4>
-        <div className="d-flex">
-          <AutoImageChange
-            currentImageIndex={currentImageIndex}
-            setCurrentImageIndex={setCurrentImageIndex}
-            product={product}
-            handleNextImage={handleNextImage}
-            handlePreviousImage={handlePreviousImage}
-            images={product.images}
-            onChange={(index) => setCurrentImageIndex(index)}
-          />
+    products.length !== 0 && (
+      <div>
+        <div className="m-4 ms-3 p-4 user-products-display-main-div">
+          <h4 className="d-flex heading mb-3">Product Information:</h4>
+          <div className="d-flex justify-content-around">
+            <AutoImageChange
+              currentImageIndex={currentImageIndex}
+              setCurrentImageIndex={setCurrentImageIndex}
+              product={product}
+              handleNextImage={handleNextImage}
+              handlePreviousImage={handlePreviousImage}
+              images={product.images}
+              onChange={(index) => setCurrentImageIndex(index)}
+            />
 
-          <div className="mt-4 ms-4 pt-3">
-            <div className="p-3">
-              <b>{product.name}</b>
-            </div>
-            <div className="ps-3">
-              <b>Color</b>
-              <div className="d-flex p-2 pe-3">
-                {getColorName(product.color)}
+            <div className="mt-4 ms-4 pt-3">
+              <div className="p-3">
+                <b>{product.name}</b>
               </div>
-            </div>
-            <div className="mt-1 ps-3 pe-3">
-              <p className="">
-                <b>Size</b>
-              </p>
-              <div className="d-flex ps-2">{product.size}</div>
-              <div className="d-flex ps-1 mt-3">
-                <p>
-                  <b>Price : </b>
+              <div className="ps-3">
+                <b>Color</b>
+                <div className="d-flex p-2 pe-3">
+                  {getColorName(product.color)}
+                </div>
+              </div>
+              <div className="mt-1 ps-3 pe-3">
+                <p className="">
+                  <b>Size</b>
                 </p>
-                <p className="ps-2" style={{ color: 'blue' }}>
-                  {product.price}
-                </p>
+                <div className="d-flex ps-2">{product.size}</div>
+                <div className="d-flex ps-1 mt-3">
+                  <p>
+                    <b>Price : </b>
+                  </p>
+                  <p className="ps-2" style={{ color: 'blue' }}>
+                    {product.price}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {isUser ? (
-          <div className="d-flex mt-4 ms-5 justify-content-around">
-            <div className="d-flex">
-              <CustomBtn
-                className="py-1"
-                variant="secondary"
-                btnText="-"
-                onClick={() => {
-                  if (productQuantity !== 1) {
-                    setProductQuantity((prev) => prev - 1);
-                  }
-                }}
-              />
-              <div className="d-flex cart-counter-view ms-2 mt-1 me-2">
-                {productQuantity}
+          {isUser ? (
+            <div className="d-flex mt-4 ms-4 ps-1 justify-content-around">
+              <div className="d-flex">
+                <CustomBtn
+                  className="py-1"
+                  variant="secondary"
+                  btnText="-"
+                  onClick={() => {
+                    if (productQuantity !== 1) {
+                      setProductQuantity((prev) => prev - 1);
+                    }
+                  }}
+                />
+                <div className="d-flex cart-counter-view ms-2 mt-1 me-2">
+                  {productQuantity}
+                </div>
+                <CustomBtn
+                  className="py-1"
+                  variant="secondary"
+                  btnText="+"
+                  onClick={() => {
+                    if (productQuantity !== product.quantity) {
+                      setProductQuantity((prev) => prev + 1);
+                    } else {
+                      message.warning('No more products available', 2);
+                    }
+                  }}
+                />
               </div>
-              <CustomBtn
-                className="py-1"
-                variant="secondary"
-                btnText="+"
-                onClick={() => {
-                  if (productQuantity !== product.quantity) {
-                    setProductQuantity((prev) => prev + 1);
-                  } else {
-                    message.warning('No more products available', 2);
-                  }
-                }}
-              />
-            </div>
-            <div>
-              {product.quantity > 0 ? (
-                <Link to="./shopping-bag">
+              <div>
+                {product.quantity > 0 ? (
+                  <Link to="./shopping-bag">
+                    <CustomBtn
+                      btnText="Add to cart"
+                      onClick={handleAddToCart}
+                    />
+                  </Link>
+                ) : (
                   <CustomBtn btnText="Add to cart" onClick={handleAddToCart} />
-                </Link>
-              ) : (
-                <CustomBtn btnText="Add to cart" onClick={handleAddToCart} />
-              )}
+                )}
+              </div>
             </div>
-          </div>
-        ) : (
-          <Link to="/auth/login">
-            <div className="d-flex mt-4 justify-content-end">
-              <CustomBtn btnText="Login to continue" />
-            </div>
-          </Link>
-        )}
+          ) : (
+            <Link to="/auth/login">
+              <div className="d-flex mt-4 justify-content-end">
+                <CustomBtn btnText="Login to continue" />
+              </div>
+            </Link>
+          )}
+        </div>
       </div>
-    </div>
+    )
   );
 };
 

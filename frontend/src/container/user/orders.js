@@ -55,7 +55,9 @@ const UserOrders = () => {
   }, [page, limit]);
 
   return orders.length === 0 ? (
-    <Empty description="No orders found" style={{ marginTop: '250px' }} />
+    <div>
+      <Empty className="table-body user-table-body" description="No orders found" style={{ paddingTop: '250px' }} />
+    </div>
   ) : (
     <div className="table-body user-table-body">
       <div className="d-flex pt-5 p-4">

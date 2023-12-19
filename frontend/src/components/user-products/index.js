@@ -1,13 +1,14 @@
-import { Spinner } from 'react-bootstrap';
+import ReactLoading from 'react-loading';
 import { Empty, Image } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  useEffect,
-  useState,
-  Suspense, lazy
+  useEffect, useState, Suspense, lazy
 } from 'react';
 
-import { fetchDisplayProduct, fetchUserProducts } from '../../redux/slices/products';
+import {
+  fetchDisplayProduct,
+  fetchUserProducts
+} from '../../redux/slices/products';
 import CustomBtn from '../button';
 
 import './style.css';
@@ -15,8 +16,12 @@ import './style.css';
 const UserProductsDisplay = lazy(() => import('../user-products-display'));
 
 const UserProducts = () => {
-  const { data: products, displayProduct } = useSelector((state) => state.products);
-  const { totalCount, isFilter } = useSelector((state) => state.products);
+  const { data: products, displayProduct } = useSelector(
+    (state) => state.products
+  );
+  const { totalCount, isFilter, productsLoading } = useSelector(
+    (state) => state.products
+  );
   const [loadingMore, setLoadingMore] = useState(false);
   const [skip, setSkip] = useState(0);
   const [limit, setLimit] = useState(4);
@@ -79,9 +84,11 @@ const UserProducts = () => {
 
   return (
     <div style={{ paddingTop: '115px' }}>
-      {products.length === 0 ? (
+      {products.length === 0 && productsLoading === false ? (
         <div className="d-flex empty-state-page product-empty-status">
-          <Empty description="No products found." />
+          <Empty
+            description={<span className="heading">No products found.</span>}
+          />
         </div>
       ) : (
         <div className="d-flex ps-5 pt-3">
@@ -91,15 +98,17 @@ const UserProducts = () => {
                 <Image.PreviewGroup
                   items={[`http://localhost:5000/${product.images[0]}`]}
                 >
-                  <Image
-                    width={257}
-                    height={300}
-                    src={`http://localhost:5000/${product.images[0]}`}
-                    alt="product"
-                    className="user-product-image p-2"
-                  />
+                  <div className="blurred-img">
+                    <Image
+                      width={257}
+                      height={300}
+                      src={`http://localhost:5000/${product.images[0]}`}
+                      alt="product"
+                      className="user-product-image"
+                      loading="lazy"
+                    />
+                  </div>
                 </Image.PreviewGroup>
-
                 <p className="p-1 flex-wrap w-100">{product.name}</p>
                 <div className="d-flex ps-1">
                   <p>Price:</p>
@@ -138,7 +147,9 @@ const UserProducts = () => {
             ))}
             <div>
               {products.length === totalCount ? (
-                <b style={{ color: 'grey' }} className="ps-5">No more products found</b>
+                <b style={{ color: 'grey' }} className="ps-5">
+                  No more products found
+                </b>
               ) : !isFilter ? (
                 <b style={{ color: 'grey' }}>
                   {totalCount}
@@ -153,10 +164,12 @@ const UserProducts = () => {
               style={{ width: '100%', minHeight: '200px' }}
             >
               {products.length < totalCount && !isFilter && (
-                <>
-                  <Spinner animation="grow" size="sm" />
-                  <Spinner animation="grow" />
-                </>
+                <ReactLoading
+                  type="cylon"
+                  color="green"
+                  height={100}
+                  width={100}
+                />
               )}
             </div>
           </div>
