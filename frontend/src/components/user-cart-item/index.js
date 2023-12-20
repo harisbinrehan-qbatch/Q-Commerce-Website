@@ -1,9 +1,6 @@
 import { useEffect } from 'react';
 import { message } from 'antd';
-import {
-  useDispatch,
-  useSelector
-} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CustomBtn from '../button';
 import Trash from '../../assets/images/Trash.svg';
@@ -68,15 +65,20 @@ const CartItem = ({ cartItem }) => {
           className="product-image"
         />
         <div>
-          <div className="container d-flex ps-3 px-2">{cartItem.name}</div>
+          <div className="container d-flex ps-3 px-2">
+            <p className="cart-item-text">{cartItem.name}</p>
+          </div>
           <div className="d-flex gap-5 ps-3">
-            <div className="pt-3">{cartItem.size}</div>
-            <div className="pt-3">{getColorName(cartItem.color)}</div>
+            <div className="pt-3">
+              <p style={{ color: 'black' }}>{cartItem.size}</p>
+            </div>
+            <div className="pt-3">
+              <p style={{ color: 'black' }}>{getColorName(cartItem.color)}</p>
+            </div>
           </div>
         </div>
       </div>
       <div className="container d-flex align-items-center justify-content-between">
-
         <div className="d-flex">
           <CustomBtn
             className="py-1"
@@ -96,9 +98,11 @@ const CartItem = ({ cartItem }) => {
         </div>
 
         <div>
-          Price:
-          {' '}
-          {cartItem.price}
+          <p style={{ color: 'black' }}>
+            Price:
+            {' '}
+            {cartItem.price}
+          </p>
         </div>
         <div className="cart-trash">
           <img
