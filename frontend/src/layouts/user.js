@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { EditOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,11 +15,47 @@ const UserLayout = ({ children, setIsLoggedIn }) => {
   const { productsLoading } = useSelector((state) => state.products);
   const { authLoading, theme } = useSelector((state) => state.authentication);
 
+  const [isDarkMode, setIsDarkMode] = useState(
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const handleChange = (event) => {
+      setIsDarkMode(event.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
+
   const handleSetTheme = (selectedTheme) => {
-    dispatch(setTheme(selectedTheme));
+    console.log({ selectedTheme }, { isDarkMode });
+    if (selectedTheme === 'default') {
+      dispatch(setTheme('default'));
+    } else if (selectedTheme === 'light') {
+      dispatch(setTheme('light'));
+    } else if (selectedTheme === 'dark') {
+      dispatch(setTheme('dark'));
+    }
   };
 
-  document.body.className = theme;
+  useEffect(() => {
+    console.log('You are coming here');
+    if (theme === 'default') {
+      if (isDarkMode) {
+        document.body.className = 'dark';
+      } else {
+        document.body.className = 'light';
+      }
+    } else {
+      document.body.className = theme;
+    }
+  }, [theme, isDarkMode]);
 
   return (
     <div>
@@ -41,16 +78,23 @@ const UserLayout = ({ children, setIsLoggedIn }) => {
           tooltip={<div>Themes</div>}
         >
           <FloatButton
-            description="Dark"
+            description="dark"
             shape="square"
             style={{ right: 164 }}
             onClick={() => handleSetTheme('dark')}
           />
+
           <FloatButton
-            description="Light"
+            description="light"
             shape="square"
             style={{ right: 164 }}
             onClick={() => handleSetTheme('light')}
+          />
+          <FloatButton
+            description="default"
+            shape="square"
+            style={{ right: 164 }}
+            onClick={() => handleSetTheme('default')}
           />
         </FloatButton.Group>
       </div>

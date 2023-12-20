@@ -1,19 +1,16 @@
 import ReactLoading from 'react-loading';
 import { Empty, Image } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  useEffect, useState, Suspense, lazy
-} from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   fetchDisplayProduct,
   fetchUserProducts
 } from '../../redux/slices/products';
+import UserProductsDisplay from '../user-products-display';
 import CustomBtn from '../button';
 
 import './style.css';
-
-const UserProductsDisplay = lazy(() => import('../user-products-display'));
 
 const UserProducts = () => {
   const { data: products, displayProduct } = useSelector(
@@ -27,9 +24,6 @@ const UserProducts = () => {
   const [limit, setLimit] = useState(4);
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  // const { theme } = useSelector((state) => state.authentication);
-  // document.body.className = theme;
 
   const dispatch = useDispatch();
 
@@ -78,6 +72,7 @@ const UserProducts = () => {
   }, [loadingMore]);
 
   const showProductDetails = (product) => {
+    console.log({ product });
     dispatch(fetchDisplayProduct(product._id));
     setCurrentImageIndex(0);
   };
@@ -174,13 +169,11 @@ const UserProducts = () => {
             </div>
           </div>
 
-          <Suspense>
-            <UserProductsDisplay
-              product={displayProduct}
-              currentImageIndex={currentImageIndex}
-              setCurrentImageIndex={setCurrentImageIndex}
-            />
-          </Suspense>
+          <UserProductsDisplay
+            product={displayProduct}
+            currentImageIndex={currentImageIndex}
+            setCurrentImageIndex={setCurrentImageIndex}
+          />
         </div>
       )}
     </div>

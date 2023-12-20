@@ -36,7 +36,6 @@ function CustomNavbar() {
   const [markAsRead, setMarkAsRead] = useState(false);
 
   const { theme } = useSelector((state) => state.authentication);
-  document.body.className = theme;
 
   const { isAdmin, isUser, user } = useSelector(
     (state) => state.authentication
@@ -63,12 +62,48 @@ function CustomNavbar() {
   };
 
   const handleMarkAsRead = (notificationId) => {
-    dispatch(readNotification(notificationId));
     setMarkAsRead(true);
+    dispatch(readNotification(notificationId));
   };
+  const [isDarkMode, setIsDarkMode] = useState(
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const handleChange = (event) => {
+      setIsDarkMode(event.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log('You are coming here');
+    if (theme === 'default') {
+      if (isDarkMode) {
+        document.body.className = 'dark';
+      } else {
+        document.body.className = 'light';
+      }
+    } else {
+      document.body.className = theme;
+    }
+  }, [theme, isDarkMode]);
 
   const handleSetTheme = (selectedTheme) => {
-    dispatch(setTheme(selectedTheme));
+    console.log({ selectedTheme }, { isDarkMode });
+    if (selectedTheme === 'default') {
+      dispatch(setTheme('default'));
+    } else if (selectedTheme === 'light') {
+      dispatch(setTheme('light'));
+    } else if (selectedTheme === 'dark') {
+      dispatch(setTheme('dark'));
+    }
   };
 
   useEffect(() => {
@@ -217,11 +252,17 @@ function CustomNavbar() {
                 <NavDropdown.Item onClick={handleLogout}>
                   Logout
                 </NavDropdown.Item>
-                <NavDropdown.Item className="py-3" onClick={() => handleSetTheme('light')}>
+                <NavDropdown.Item
+                  className="py-3"
+                  onClick={() => handleSetTheme('light')}
+                >
                   Light Theme
                 </NavDropdown.Item>
                 <NavDropdown.Item onClick={() => handleSetTheme('dark')}>
                   Dark Theme
+                </NavDropdown.Item>
+                <NavDropdown.Item onClick={() => handleSetTheme('default')}>
+                  Default Theme
                 </NavDropdown.Item>
               </NavDropdown>
             ) : null}
